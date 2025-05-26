@@ -24,11 +24,11 @@ class IOSQuickStartTest {
         XCUITestOptions options = new XCUITestOptions()
                 .setAutomationName("XCUITest")
                 .setApp("cloud:com.experitest.ExperiBank")
-                .setBundleId("com.experitest.ExperiBank");
-        options.setCapability("testName", "Run Quickstart test on iOS device");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='ios'");
+                .setBundleId("com.experitest.ExperiBank")
+                .amend("digitalai:testName", "Run Quickstart test on iOS device")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='ios'");
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 

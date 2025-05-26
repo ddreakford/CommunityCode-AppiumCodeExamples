@@ -29,12 +29,12 @@ class ReporterDisableAndroidTest {
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
-                .setAutomationName("UiAutomator2");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("report.disable", true);
-        options.setCapability("testName", "Report disable test on Android device");
+                .setAutomationName("UiAutomator2")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:report.disable", true)
+                .amend("digitalai:testName", "Report disable test on Android device");
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
 

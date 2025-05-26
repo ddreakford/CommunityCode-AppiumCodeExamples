@@ -25,12 +25,12 @@ class LoggingDeviceIOSTest {
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
                 .setAutomationName("XCUITest")
-                .setApp("cloud:com.experitest.ExperiBank")
-                .setBundleId("com.experitest.ExperiBank");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='ios'");
-        options.setCapability("testName", "Logging device test on iOS device");
+                .setApp("digitalai:cloud:com.experitest.ExperiBank")
+                .setBundleId("com.experitest.ExperiBank")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:testName", "Logging device test on iOS device");
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 

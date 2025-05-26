@@ -29,15 +29,14 @@ class SetLocationIOSTest {
     @BeforeEach
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
-                .setAutomationName("XCUITest");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='ios'");
-        options.setCapability("testName", "Set location test on iOS device");
-        options.setCapability("bundleId", "com.apple.Preferences");
+                .setAutomationName("XCUITest")
+                .setBundleId("com.apple.Preferences")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:testName", "Set location test on iOS device");
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
-
 
     @Test
     void setLocation() {

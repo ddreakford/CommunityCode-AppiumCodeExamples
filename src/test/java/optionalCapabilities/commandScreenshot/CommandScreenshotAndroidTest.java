@@ -28,12 +28,12 @@ class CommandScreenshotAndroidTest {
                 .setAutomationName("UiAutomator2")
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
-                .setAppActivity(".LoginActivity");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("testName", "Command screenshot test on Android device");
-        options.setCapability("commandScreenshot", true);
+                .setAppActivity(".LoginActivity")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:testName", "Command screenshot test on Android device")
+                .amend("digitalai:commandScreenshot", true);
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
 

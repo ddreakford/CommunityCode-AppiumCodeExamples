@@ -28,12 +28,12 @@ class BuildVersionAndroidTest {
                 .setAutomationName("UiAutomator2")
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
-                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("testName", "Build version test on Android device");
-        options.setCapability("appBuildVersion", APP_BUILD_VERSION);
+                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:testName", "Build version test on Android device")
+                .amend("digitalai:appBuildVersion", APP_BUILD_VERSION);
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
 

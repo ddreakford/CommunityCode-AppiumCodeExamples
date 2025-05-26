@@ -27,17 +27,16 @@ class PerformanceTransactionForApplicationAndroidTest {
     public void before() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
                 .setAutomationName("UiAutomator2")
-                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
+                .setApp("digitalai:cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
-                .setAppActivity(".LoginActivity");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("instrumentApp", true);
-        options.setCapability("testName", "Performance transaction for application test on Android device");
+                .setAppActivity(".LoginActivity")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:instrumentApp", true)
+                .amend("digitalai:testName", "Performance transaction for application test on Android device");
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
-
 
     @Test
     void performPerformanceTransaction() {

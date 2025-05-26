@@ -31,16 +31,15 @@ class SimulateCaptureAndroidTest {
                 .setAutomationName("UiAutomator2")
                 .setApp("cloud:com.experitest.uicatalog/.MainActivity")
                 .setAppPackage("com.experitest.uicatalog")
-                .setAppActivity(".MainActivity");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("testName", "Run simulate capture test on Android device");
-        options.setCapability("autoGrantPermissions", true);
-        options.setCapability("instrumentApp", true);
+                .setAppActivity(".MainActivity")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:testName", "Run simulate capture test on Android device")
+                .amend("digitalai:autoGrantPermissions", true)
+                .amend("digitalai:instrumentApp", true);
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
-
 
     private void runSimulateCapture(boolean fromURL) throws InterruptedException {
         try {

@@ -28,12 +28,12 @@ class DoNotGoHomeOnQuitAndroidTest {
                 .setAutomationName("UiAutomator2")
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
-                .setAppActivity(".LoginActivity");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("dontGoHomeOnQuit", true);
-        options.setCapability("testName", "DontGoHomeOnQuit test on Android device");
+                .setAppActivity(".LoginActivity")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:dontGoHomeOnQuit", true)
+                .amend("digitalai:testName", "DontGoHomeOnQuit test on Android device");
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
 

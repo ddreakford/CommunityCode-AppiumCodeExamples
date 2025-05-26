@@ -28,12 +28,12 @@ class ReporterDisableIOSTest {
         XCUITestOptions options = new XCUITestOptions()
                 .setApp("cloud:com.experitest.ExperiBank")
                 .setBundleId("com.experitest.ExperiBank")
-                .setAutomationName("XCUITest");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='ios'");
-        options.setCapability("report.disable", true);
-        options.setCapability("testName", "Report disable test on iOS device");
+                .setAutomationName("XCUITest")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:report.disable", true)
+                .amend("digitalai:testName", "Report disable test on iOS device");
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 

@@ -37,16 +37,15 @@ class AutomotiveProjectionAndroidTest {
         UiAutomator2Options options = new UiAutomator2Options()
                 .setAutomationName("UiAutomator2")
                 .setAppPackage("com.google.android.apps.maps")
-                .setAppActivity("com.google.android.maps.MapsActivity");
-        options.setCapability("testName", "Android Auto quick start test");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("digitalai:automotiveProjection", DHU_SCREEN_SIZE);
-        options.setCapability("autoGrantPermissions", true); // for location permission
+                .setAppActivity("com.google.android.maps.MapsActivity")
+                .autoGrantPermissions()
+                .amend("digitalai:testName", "Android Auto quick start test")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:automotiveProjection", DHU_SCREEN_SIZE);
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
-
 
     @Test
     void quickStartAndroidNativeDemo() throws InterruptedException {

@@ -24,11 +24,11 @@ class SetReportStatusIOSTest {
         XCUITestOptions options = new XCUITestOptions()
                 .setAutomationName("XCUITest")
                 .setApp("cloud:com.experitest.ExperiBank")
-                .setBundleId("com.experitest.ExperiBank");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='ios'");
-        options.setCapability("testName", "Set Report status test on iOS device");
+                .setBundleId("com.experitest.ExperiBank")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:testName", "Set Report status test on iOS device");
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 

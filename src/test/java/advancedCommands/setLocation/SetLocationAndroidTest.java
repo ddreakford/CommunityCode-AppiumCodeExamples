@@ -25,14 +25,13 @@ class SetLocationAndroidTest {
     @BeforeEach
     public void before() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
-                .setAutomationName("UiAutomator2");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='android'");
-        options.setCapability("testName", "Set location test on Android device");
+                .setAutomationName("UiAutomator2")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:testName", "Set location test on Android device");
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
-
 
     @Test
     void setLocation() {

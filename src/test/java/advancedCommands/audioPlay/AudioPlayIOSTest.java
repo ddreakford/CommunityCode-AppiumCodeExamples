@@ -22,16 +22,14 @@ class AudioPlayIOSTest {
     @BeforeEach
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
-                .setAutomationName("XCUITest");
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='ios'");
-        options.setCapability("instrumentApp", true);
-        options.setCapability("testName", "Performance audio play test on iOS device");
-
+                .setAutomationName("XCUITest")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:instrumentApp", true)
+                .amend("digitalai:testName", "Performance audio play test on iOS device");
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
-
 
     @Test
     void performAudioPlaying() throws InterruptedException {

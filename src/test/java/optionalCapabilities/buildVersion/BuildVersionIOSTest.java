@@ -27,14 +27,12 @@ class BuildVersionIOSTest {
         XCUITestOptions options = new XCUITestOptions()
                 .setAutomationName("XCUITest")
                 .setApp("cloud:com.experitest.ExperiBank")
-                .setBundleId("com.experitest.ExperiBank");
-
-        options.setCapability("accessKey", ACCESS_KEY);
-        options.setCapability("appiumVersion", APPIUM_VERSION);
-        options.setCapability("deviceQuery", "@os='ios'");
-        options.setCapability("testName", "Build version test on iOS device");
-        options.setCapability("appBuildVersion", APP_BUILD_VERSION);
-
+                .setBundleId("com.experitest.ExperiBank")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:testName", "Build version test on iOS device")
+                .amend("digitalai:appBuildVersion", APP_BUILD_VERSION);
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 
