@@ -27,7 +27,7 @@ class PerformanceTransactionForApplicationAndroidTest {
     public void before() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
                 .setAutomationName("UiAutomator2")
-                .setApp("digitalai:cloud:com.experitest.ExperiBank/.LoginActivity")
+                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", ACCESS_KEY)

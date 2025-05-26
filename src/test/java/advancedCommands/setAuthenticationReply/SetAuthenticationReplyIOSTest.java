@@ -30,7 +30,7 @@ class SetAuthenticationReplyIOSTest {
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
                 .setAutomationName("XCUITest")
-                .setApp("digitalai:cloud:com.experitest.UICatalog")
+                .setApp("cloud:com.experitest.UICatalog")
                 .setBundleId("com.experitest.UICatalog")
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)

@@ -31,7 +31,7 @@ class InstallAppIOSTest {
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
                 .setAutomationName("XCUITest")
-                .setApp("digitalai:cloud:com.experitest.ExperiBank")
+                .setApp("cloud:com.experitest.ExperiBank")
                 .setBundleId(APP_PACKAGE)
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)

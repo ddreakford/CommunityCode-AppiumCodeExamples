@@ -24,7 +24,7 @@ class SendKeysWithBTIOSTest {
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
                 .setAutomationName("XCUITest")
-                .setApp("digitalai:cloud:com.experitest.ExperiBank")
+                .setApp("cloud:com.experitest.ExperiBank")
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
