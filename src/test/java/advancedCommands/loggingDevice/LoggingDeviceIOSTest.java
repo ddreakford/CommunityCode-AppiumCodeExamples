@@ -1,5 +1,6 @@
 package advancedCommands.loggingDevice;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import java.net.MalformedURLException;
@@ -7,7 +8,6 @@ import java.net.URL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
 
 /**
@@ -39,9 +39,9 @@ class LoggingDeviceIOSTest {
         // File with unique name <FILE_UNIQUE_NAME> must not exist in file repository
         driver.executeScript("seetest:client.startLoggingDevice", "cloud:<FILE_UNIQUE_NAME>.log");
         driver.rotate(ScreenOrientation.PORTRAIT);
-        driver.findElement(By.xpath("//*[@name='usernameTextField']")).sendKeys("company");
-        driver.findElement(By.xpath("//*[@name='passwordTextField']")).sendKeys("company");
-        driver.findElement(By.xpath("//*[@name='loginButton']")).click();
+        driver.findElement(AppiumBy.xpath("//*[@name='usernameTextField']")).sendKeys("company");
+        driver.findElement(AppiumBy.xpath("//*[@name='passwordTextField']")).sendKeys("company");
+        driver.findElement(AppiumBy.xpath("//*[@name='loginButton']")).click();
         driver.executeScript("seetest:client.stopLoggingDevice");
     }
 

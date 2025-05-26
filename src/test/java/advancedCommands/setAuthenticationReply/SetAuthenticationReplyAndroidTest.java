@@ -45,8 +45,8 @@ class SetAuthenticationReplyAndroidTest {
     @Test
     void setAuthenticationReply() {
         try {
-            driver.findElement(AppiumBy.androidUIAutomator((
-                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()")));
+            driver.findElement(AppiumBy.androidUIAutomator(
+                    "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
         } catch (NoSuchElementException e) {
             // ignore
         }

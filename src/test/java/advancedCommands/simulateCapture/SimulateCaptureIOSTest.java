@@ -1,5 +1,6 @@
 package advancedCommands.simulateCapture;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.options.XCUITestOptions;
 import java.net.MalformedURLException;
@@ -7,7 +8,6 @@ import java.net.URL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 
 /**
  * The command allows users to test applications that use the camera on a mobile device.
@@ -39,7 +39,7 @@ class SimulateCaptureIOSTest {
     }
 
     private void runSimulateCapture(boolean fromURL) throws InterruptedException {
-        driver.findElement(By.xpath("//*[@text='CameraAVTitle']")).click();
+        driver.findElement(AppiumBy.xpath("//*[@text='CameraAVTitle']")).click();
 
         Thread.sleep(10000); // time to wait until the image will be shown
         if (fromURL) {

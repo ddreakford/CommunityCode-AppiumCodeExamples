@@ -30,7 +30,6 @@ class AndroidQuickStartTest {
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='android'")
                 .amend("digitalai:testName", "Run Quickstart test on Android device");
-
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
 
