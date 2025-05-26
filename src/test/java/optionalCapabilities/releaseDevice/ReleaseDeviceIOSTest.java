@@ -25,7 +25,6 @@ class ReleaseDeviceIOSTest {
     @BeforeEach
     public void setUp() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
-                .setAutomationName("XCUITest")
                 .setApp("cloud:com.experitest.ExperiBank")
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:accessKey", ACCESS_KEY)

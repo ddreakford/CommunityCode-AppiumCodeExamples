@@ -29,7 +29,6 @@ class ReporterDisableAndroidTest {
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
-                .setAutomationName("UiAutomator2")
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='android'")

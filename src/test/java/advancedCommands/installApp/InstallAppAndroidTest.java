@@ -29,7 +29,6 @@ class InstallAppAndroidTest {
     @BeforeEach
     public void before() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
-                .setAutomationName("UiAutomator2")
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage(APP_PACKAGE)
                 .setAppActivity(".LoginActivity")

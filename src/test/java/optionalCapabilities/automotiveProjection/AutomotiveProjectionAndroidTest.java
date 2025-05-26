@@ -35,7 +35,6 @@ class AutomotiveProjectionAndroidTest {
     @BeforeEach
     public void setUp() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
-                .setAutomationName("UiAutomator2")
                 .setAppPackage("com.google.android.apps.maps")
                 .setAppActivity("com.google.android.maps.MapsActivity")
                 .autoGrantPermissions()

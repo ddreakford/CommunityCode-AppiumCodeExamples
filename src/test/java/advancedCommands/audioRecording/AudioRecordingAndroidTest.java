@@ -22,7 +22,6 @@ class AudioRecordingAndroidTest {
     @BeforeEach
     public void before() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
-                .setAutomationName("UiAutomator2")
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='android'")

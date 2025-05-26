@@ -22,7 +22,6 @@ class IOSQuickStartTest {
     @BeforeEach
     public void setUp() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
-                .setAutomationName("XCUITest")
                 .setApp("cloud:com.experitest.ExperiBank")
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:testName", "Run Quickstart test on iOS device")

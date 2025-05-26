@@ -29,7 +29,6 @@ class SetLocationIOSTest {
     @BeforeEach
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
-                .setAutomationName("XCUITest")
                 .setBundleId("com.apple.Preferences")
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)

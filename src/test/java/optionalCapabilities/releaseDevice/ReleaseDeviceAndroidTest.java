@@ -25,7 +25,6 @@ class ReleaseDeviceAndroidTest {
     @BeforeEach
     public void setUp() throws MalformedURLException {
         driver = new AndroidDriver(new URL(CLOUD_URL), new UiAutomator2Options()
-                .setAutomationName("UiAutomator2")
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")

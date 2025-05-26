@@ -28,7 +28,6 @@ class ReporterDisableIOSTest {
         XCUITestOptions options = new XCUITestOptions()
                 .setApp("cloud:com.experitest.ExperiBank")
                 .setBundleId("com.experitest.ExperiBank")
-                .setAutomationName("XCUITest")
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='ios'")

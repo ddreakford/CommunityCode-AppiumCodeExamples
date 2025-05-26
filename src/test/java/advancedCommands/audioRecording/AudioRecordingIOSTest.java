@@ -22,7 +22,6 @@ class AudioRecordingIOSTest {
     @BeforeEach
     public void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
-                .setAutomationName("XCUITest")
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='ios'")
