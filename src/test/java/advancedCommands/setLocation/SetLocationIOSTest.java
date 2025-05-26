@@ -1,16 +1,17 @@
 package advancedCommands.setLocation;
 
+import io.appium.java_client.AppiumBy;
+import io.appium.java_client.Location;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.ios.options.XCUITestOptions;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.html5.Location;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -19,39 +20,38 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class SetLocationIOSTest {
 
+    private static final String CLOUD_URL = "<CLOUD_URL>/wd/hub";
+    private static final String ACCESS_KEY = "<ACCESS_KEY>";
+    private static final String APPIUM_VERSION = "<APPIUM_VERSION>";
 
-    IOSDriver<IOSElement> driver = null;
-    DesiredCapabilities dc = new DesiredCapabilities();
-    final String CLOUD_URL = "<CLOUD_URL>" + "/wd/hub";
-    final String ACCESS_KEY = "<ACCESS_KEY>";
-    final String APPIUM_VERSION = "<APPIUM_VERSION>";
-
+    private IOSDriver driver = null;
 
     @BeforeEach
     public void before() throws MalformedURLException {
-        dc.setCapability("accessKey", ACCESS_KEY);
-        dc.setCapability("appiumVersion", APPIUM_VERSION);
-        dc.setCapability("deviceQuery", "@os='ios'");
-        dc.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCUITest");
-        dc.setCapability("testName", "Set location test on iOS device");
-        dc.setCapability("bundleId", "com.apple.Preferences");
-        driver = new IOSDriver<>(new URL(CLOUD_URL), dc);
+        XCUITestOptions options = new XCUITestOptions()
+                .setAutomationName("XCUITest");
+        options.setCapability("accessKey", ACCESS_KEY);
+        options.setCapability("appiumVersion", APPIUM_VERSION);
+        options.setCapability("deviceQuery", "@os='ios'");
+        options.setCapability("testName", "Set location test on iOS device");
+        options.setCapability("bundleId", "com.apple.Preferences");
+        driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 
 
     @Test
     void setLocation() {
-        driver.launchApp();
-        driver.setLocation(new Location(32, 24, 24));
+        driver.activateApp("com.apple.Preferences");
+        driver.setLocation(new Location(32, 24, 24.0));
         Location loc;
 
         try {
-            loc = driver.location();
+            loc = driver.getLocation();
         } catch (WebDriverException e) {
             // need to configure location permissions for ios
             if (e.getMessage().contains("Location service must be set to 'Always'")) {
                 configureIosLocationPermission();
-                loc = driver.location();
+                loc = driver.getLocation();
             } else {
                 throw e;
             }
@@ -66,11 +66,12 @@ class SetLocationIOSTest {
         configMap.put("direction", "down");
         configMap.put("label", "Privacy");
         driver.executeScript("mobile: scroll", configMap);
-        driver.findElementByXPath("//*[@label='Privacy']").click();
-        driver.findElementByXPath("//*[@label='Location Services']").click();
-        driver.findElementByXPath("//*[@label='WebDriverAgentRunner-Runner']").click();
-        driver.findElementByXPath("//*[@label='Always']").click();
+        driver.findElement(AppiumBy.xpath("//*[@label='Privacy']")).click();
+        driver.findElement(AppiumBy.xpath("//*[@label='Location Services']")).click();
+        driver.findElement(AppiumBy.xpath("//*[@label='WebDriverAgentRunner-Runner']")).click();
+        driver.findElement(AppiumBy.xpath("//*[@label='Always']")).click();
     }
+
 
     @AfterEach
     public void tearDown() {

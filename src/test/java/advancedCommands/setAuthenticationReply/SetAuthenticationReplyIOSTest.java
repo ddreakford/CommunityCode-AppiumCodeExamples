@@ -1,18 +1,16 @@
 package advancedCommands.setAuthenticationReply;
 
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.remote.IOSMobileCapabilityType;
-import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.ios.options.XCUITestOptions;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.remote.DesiredCapabilities;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -22,27 +20,28 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 class SetAuthenticationReplyIOSTest {
 
-    IOSDriver<IOSElement> driver = null;
-    DesiredCapabilities dc = new DesiredCapabilities();
-    final String CLOUD_URL = "<CLOUD_URL>" + "/wd/hub";
-    final String ACCESS_KEY = "<ACCESS_KEY>";
-    final String APPIUM_VERSION = "<APPIUM_VERSION>";
+    private static final String CLOUD_URL = "<CLOUD_URL>/wd/hub";
+    private static final String ACCESS_KEY = "<ACCESS_KEY>";
+    private static final String APPIUM_VERSION = "<APPIUM_VERSION>";
+
+    private IOSDriver driver = null;
 
     @BeforeEach
     public void before() throws MalformedURLException {
-        dc.setCapability("accessKey", ACCESS_KEY);
-        dc.setCapability("appiumVersion", APPIUM_VERSION);
-        dc.setCapability("deviceQuery", "@os='ios'");
-        dc.setCapability(MobileCapabilityType.AUTOMATION_NAME,  "XCUITest");
-        dc.setCapability("instrumentApp", true);
-        dc.setCapability("testName", "Set authentication reply test on iOS device");
-        dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.UICatalog");
-        dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.UICatalog");
-        driver = new IOSDriver<>(new URL(CLOUD_URL), dc);
+        XCUITestOptions options = new XCUITestOptions()
+                .setAutomationName("XCUITest")
+                .setApp("cloud:com.experitest.UICatalog")
+                .setBundleId("com.experitest.UICatalog");
+        options.setCapability("accessKey", ACCESS_KEY);
+        options.setCapability("appiumVersion", APPIUM_VERSION);
+        options.setCapability("deviceQuery", "@os='ios'");
+        options.setCapability("instrumentApp", true);
+        options.setCapability("testName", "Set authentication reply test on iOS device");
+        driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 
     @Test
-    void setAuthenticationReply()  {
+    void setAuthenticationReply() {
         final HashMap<String, String> scrollObject = new HashMap<>();
         scrollObject.put("direction", "down");
         try {
@@ -52,12 +51,12 @@ class SetAuthenticationReplyIOSTest {
             fail("mobileScrollIOS(): FAILED\n" + e.getMessage());
 
         }
-        driver.findElement(By.xpath("//*[@label='Authentication']")).click();
+        driver.findElement(AppiumBy.xpath("//*[@label='Authentication']")).click();
         driver.executeScript("seetest:client.setAuthenticationReply", "Success", 1000);
-        driver.findElementByXPath("//*[@label='Request Touch ID Authentication']").click();
+        driver.findElement(AppiumBy.xpath("//*[@label='Request Touch ID Authentication']")).click();
 
         try {
-            driver.findElementByXPath("//*[@label='Success']");
+            driver.findElement(AppiumBy.xpath("//*[@label='Success']"));
         } catch (NoSuchElementException e) {
             fail("Set authentication failed", e);
         }

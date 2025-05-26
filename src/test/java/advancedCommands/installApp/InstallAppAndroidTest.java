@@ -1,45 +1,46 @@
 package advancedCommands.installApp;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.remote.AndroidMobileCapabilityType;
-import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.android.options.UiAutomator2Options;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.junit.jupiter.api.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  Install the application when given:
-    * Name
-    * Unique name
-    * Build version or release version or both
+ * Name
+ * Unique name
+ * Build version or release version or both
  */
 class InstallAppAndroidTest {
 
-    AndroidDriver<AndroidElement> driver = null;
-    DesiredCapabilities dc = new DesiredCapabilities();
-    final String CLOUD_URL = "<CLOUD_URL>" + "/wd/hub";
-    final String ACCESS_KEY = "<ACCESS_KEY>";
-    final String APPIUM_VERSION = "<APPIUM_VERSION>";
-    final String APP_BUILD_VERSION = "<APPLICATION_BUILD_VERSION>";
-    final String APP_RELEASE_VERSION = "<APPLICATION_RELEASE_VERSION>";
-    final String APP_UNIQUE_NAME = "<APPLICATION_UNIQUE_NAME>";
-    static final String APP_PACKAGE = "com.experitest.ExperiBank";
+    private static final String CLOUD_URL = "<CLOUD_URL>/wd/hub";
+    private static final String ACCESS_KEY = "<ACCESS_KEY>";
+    private static final String APPIUM_VERSION = "<APPIUM_VERSION>";
+    private static final String APP_BUILD_VERSION = "<APPLICATION_BUILD_VERSION>";
+    private static final String APP_RELEASE_VERSION = "<APPLICATION_RELEASE_VERSION>";
+    private static final String APP_UNIQUE_NAME = "<APPLICATION_UNIQUE_NAME>";
+    private static final String APP_PACKAGE = "com.experitest.ExperiBank";
 
+    private AndroidDriver driver = null;
 
     @BeforeEach
     public void before() throws MalformedURLException {
-        dc.setCapability("accessKey", ACCESS_KEY);
-        dc.setCapability("appiumVersion", APPIUM_VERSION);
-        dc.setCapability("deviceQuery", "@os='android'");
-        dc.setCapability(MobileCapabilityType.AUTOMATION_NAME,  "UiAutomator2");
-        dc.setCapability("testName", "Install application test on Android device");
-        dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.ExperiBank/.LoginActivity");
-        dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
-        dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
-        driver = new AndroidDriver<>(new URL(CLOUD_URL), dc);
+        UiAutomator2Options options = new UiAutomator2Options()
+                .setAutomationName("UiAutomator2")
+                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
+                .setAppPackage(APP_PACKAGE)
+                .setAppActivity(".LoginActivity");
+        options.setCapability("accessKey", ACCESS_KEY);
+        options.setCapability("appiumVersion", APPIUM_VERSION);
+        options.setCapability("deviceQuery", "@os='android'");
+        options.setCapability("testName", "Install application test on Android device");
+
+        driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
+
 
     @Test
     void installAppByName() {

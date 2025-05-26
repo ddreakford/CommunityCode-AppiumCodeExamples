@@ -1,9 +1,7 @@
 package optionalCapabilities.releaseVersion;
 
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.remote.IOSMobileCapabilityType;
-import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.ios.options.XCUITestOptions;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.junit.jupiter.api.AfterEach;
@@ -11,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 
 /**
@@ -19,24 +16,25 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 class ReleaseVersionIOSTest {
 
-    IOSDriver<IOSElement> driver = null;
-    DesiredCapabilities dc = new DesiredCapabilities();
-    final String CLOUD_URL = "<CLOUD_URL>" + "/wd/hub";
-    final String ACCESS_KEY = "<ACCESS_KEY>";
-    final String APPIUM_VERSION = "<APPIUM_VERSION>";
-    final String APP_RELEASE_VERSION = "<APP_RELEASE_VERSION>";
+    private static final String CLOUD_URL = "<CLOUD_URL>/wd/hub";
+    private static final String ACCESS_KEY = "<ACCESS_KEY>";
+    private static final String APPIUM_VERSION = "<APPIUM_VERSION>";
+    private static final String APP_RELEASE_VERSION = "<APP_RELEASE_VERSION>";
 
+    private IOSDriver driver = null;
 
     @BeforeEach
     public void setUp() throws MalformedURLException {
-        dc.setCapability("accessKey", ACCESS_KEY);
-        dc.setCapability("appiumVersion", APPIUM_VERSION);
-        dc.setCapability("deviceQuery", "@os='ios'");
-        dc.setCapability("testName", "Release version test on iOS device");
-        dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.ExperiBank");
-        dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.ExperiBank");
-        dc.setCapability("appReleaseVersion", APP_RELEASE_VERSION);
-        driver = new IOSDriver<>(new URL(CLOUD_URL), dc);
+        XCUITestOptions options = new XCUITestOptions()
+                .setAutomationName("XCUITest")
+                .setApp("cloud:com.experitest.ExperiBank")
+                .setBundleId("com.experitest.ExperiBank");
+        options.setCapability("accessKey", ACCESS_KEY);
+        options.setCapability("appiumVersion", APPIUM_VERSION);
+        options.setCapability("deviceQuery", "@os='ios'");
+        options.setCapability("testName", "Release version test on iOS device");
+        options.setCapability("appReleaseVersion", APP_RELEASE_VERSION);
+        driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 
     @Test

@@ -1,45 +1,42 @@
 package advancedCommands.simulateCapture;
 
 import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
-import io.appium.java_client.remote.IOSMobileCapabilityType;
-import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.ios.options.XCUITestOptions;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * The command allows users to test applications that use the camera on a mobile device.
  * The command injects an image file to the camera preview screen.
  * The command can run using file with a unique name in file repository or with a file URL.
  * Note: The application must be installed with simulate capture support.
-**/
+ **/
 class SimulateCaptureIOSTest {
 
-    IOSDriver<IOSElement> driver = null;
-    DesiredCapabilities dc = new DesiredCapabilities();
-    final String CLOUD_URL = "<CLOUD_URL>" + "/wd/hub";
-    final String ACCESS_KEY = "<ACCESS_KEY>";
-    final String APPIUM_VERSION = "<APPIUM_VERSION>";
+    private static final String CLOUD_URL = "<CLOUD_URL>/wd/hub";
+    private static final String ACCESS_KEY = "<ACCESS_KEY>";
+    private static final String APPIUM_VERSION = "<APPIUM_VERSION>";
+
+    private IOSDriver driver = null;
 
     @BeforeEach
     public void before() throws MalformedURLException {
-        dc.setCapability("accessKey", ACCESS_KEY);
-        dc.setCapability("appiumVersion", APPIUM_VERSION);
-        dc.setCapability("deviceQuery", "@os='ios'");
-        dc.setCapability(MobileCapabilityType.AUTOMATION_NAME,  "XCUITest");
-        dc.setCapability("testName", "Run simulate capture test on iOS device");
-        dc.setCapability("autoGrantPermissions", true);
-        dc.setCapability("instrumentApp", true);
-        dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.UICatalog");
-        dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.UICatalog");
-        driver = new IOSDriver<>(new URL(CLOUD_URL), dc);
+        XCUITestOptions options = new XCUITestOptions()
+                .setAutomationName("XCUITest")
+                .setApp("cloud:com.experitest.UICatalog")
+                .setBundleId("com.experitest.UICatalog");
+        options.setCapability("accessKey", ACCESS_KEY);
+        options.setCapability("appiumVersion", APPIUM_VERSION);
+        options.setCapability("deviceQuery", "@os='ios'");
+        options.setCapability("testName", "Run simulate capture test on iOS device");
+        options.setCapability("autoGrantPermissions", true);
+        options.setCapability("instrumentApp", true);
+        driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
-
 
     private void runSimulateCapture(boolean fromURL) throws InterruptedException {
         driver.findElement(By.xpath("//*[@text='CameraAVTitle']")).click();
@@ -62,7 +59,7 @@ class SimulateCaptureIOSTest {
 
     @Test
     void simulateCaptureFromFileRepository() throws Exception {
-     runSimulateCapture(false);
+        runSimulateCapture(false);
     }
 
     @AfterEach
