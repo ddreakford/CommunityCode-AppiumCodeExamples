@@ -2,48 +2,52 @@ package optionalCapabilities.automotiveProjection;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import org.junit.jupiter.api.*;
-import org.opencv.core.*;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-import org.openqa.selenium.By;
-import org.openqa.selenium.remote.DesiredCapabilities;
-
+import io.appium.java_client.android.options.UiAutomator2Options;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.openqa.selenium.By;
 
-public class AutomotiveProjectionAndroidTest {
+class AutomotiveProjectionAndroidTest {
 
     static {
         nu.pattern.OpenCV.loadLocally(); // Load OpenCV native library
     }
 
-    AndroidDriver<AndroidElement> driver = null;
-    DesiredCapabilities dc = new DesiredCapabilities();
-    final String CLOUD_URL = "<CLOUD_URL>" + "/wd/hub";
-    final String ACCESS_KEY = "<ACCESS_KEY>";
-    final String APPIUM_VERSION = "<APPIUM_VERSION>";
-    final String DHU_SCREEN_SIZE = "<DHU_SCREEN_SIZE>"; // "800x480" | "1280x720" |"1920x1080"
+    private static final String CLOUD_URL = "<CLOUD_URL>/wd/hub";
+    private static final String ACCESS_KEY = "<ACCESS_KEY>";
+    private static final String APPIUM_VERSION = "<APPIUM_VERSION>";
+    private static final String DHU_SCREEN_SIZE = "<DHU_SCREEN_SIZE>"; // "800x480" | "1280x720" | "1920x1080"
+
+    private AndroidDriver driver = null;
 
     @BeforeEach
     public void setUp() throws MalformedURLException {
-        dc.setCapability("testName", "Android Auto quick start test");
-        dc.setCapability("accessKey", ACCESS_KEY);
-        dc.setCapability("appiumVersion", APPIUM_VERSION);
-        dc.setCapability("deviceQuery", "@os='android'");
-        dc.setCapability("appPackage", "com.google.android.apps.maps");
-        dc.setCapability("appActivity", "com.google.android.maps.MapsActivity");
-        dc.setCapability("digitalai:automotiveProjection", DHU_SCREEN_SIZE);
-        dc.setCapability("autoGrantPermissions", true); //for location permission
-        driver = new AndroidDriver<>(new URL(CLOUD_URL), dc);
+        UiAutomator2Options options = new UiAutomator2Options()
+                .setAppPackage("com.google.android.apps.maps")
+                .setAppActivity("com.google.android.maps.MapsActivity")
+                .autoGrantPermissions()
+                .amend("digitalai:testName", "Android Auto quick start test")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:automotiveProjection", DHU_SCREEN_SIZE);
+        driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
 
     @Test
-    public void quickStartAndroidNativeDemo() throws InterruptedException {
+    void quickStartAndroidNativeDemo() throws InterruptedException {
         // This method walks through the values in the given file and sets the location after the delay in the delay parameter.
         // This is used to simulate the movement of a device. For more info see step 3 in test description
         driver.executeScript("seetest:client.setLocationPlaybackFile", "cloud:locationPoints", 1000, "gps");
@@ -61,8 +65,10 @@ public class AutomotiveProjectionAndroidTest {
         Thread.sleep(3000);
 
         //send keys to keyboard on mobile device
-        driver.findElement(By.xpath("//*[@resource-id='com.google.android.projection.gearhead:id/open_search_view_edit_text']")).sendKeys("tel aviv");
-        driver.executeScript( "mobile: performEditorAction", ImmutableMap.of("action", "Search"));
+        driver.findElement(
+                        By.xpath("//*[@resource-id='com.google.android.projection.gearhead:id/open_search_view_edit_text']"))
+                .sendKeys("tel aviv");
+        driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "Search"));
         Thread.sleep(5000);
 
         Mat startButtonImage = Imgcodecs.imread("startButton.png");
@@ -100,7 +106,8 @@ public class AutomotiveProjectionAndroidTest {
         }
 
         Mat result = new Mat();
-        Imgproc.matchTemplate(inputImage, templateImage, result, Imgproc.TM_CCOEFF_NORMED); //find the template in the input image
+        Imgproc.matchTemplate(inputImage, templateImage, result,
+                Imgproc.TM_CCOEFF_NORMED); //find the template in the input image
         MatOfPoint points = new MatOfPoint();
 
         Core.findNonZero(result, points);
@@ -119,7 +126,7 @@ public class AutomotiveProjectionAndroidTest {
         try {
             findImageUsingOpencv(getDHUScreenshotAsMat(), menuButtonImage);
             driver.executeScript("digitalai:automotive.tap", 200, 200); //tap in the middle of the screen
-        }catch (RuntimeException ignored){
+        } catch (RuntimeException ignored) {
             System.out.println("App is already on full screen");
         }
     }

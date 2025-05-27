@@ -1,16 +1,15 @@
 package advancedCommands.simulateCapture;
 
-import io.appium.java_client.MobileBy;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.remote.AndroidMobileCapabilityType;
-import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.android.options.UiAutomator2Options;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * The command allows users to test applications that use the camera on a mobile device.
@@ -20,38 +19,37 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 class SimulateCaptureAndroidTest {
 
-    AndroidDriver<AndroidElement> driver = null;
-    DesiredCapabilities dc = new DesiredCapabilities();
-    final String CLOUD_URL = "<CLOUD_URL>" + "/wd/hub";
-    final String ACCESS_KEY = "<ACCESS_KEY>";
-    final String APPIUM_VERSION = "<APPIUM_VERSION>";
+    private static final String CLOUD_URL = "<CLOUD_URL>/wd/hub";
+    private static final String ACCESS_KEY = "<ACCESS_KEY>";
+    private static final String APPIUM_VERSION = "<APPIUM_VERSION>";
+
+    private AndroidDriver driver = null;
 
     @BeforeEach
     public void before() throws MalformedURLException {
-        dc.setCapability("accessKey", ACCESS_KEY);
-        dc.setCapability("appiumVersion", APPIUM_VERSION);
-        dc.setCapability("deviceQuery", "@os='android'");
-        dc.setCapability(MobileCapabilityType.AUTOMATION_NAME,  "UiAutomator2");
-        dc.setCapability("testName", "Run simulate capture test on Android device");
-        dc.setCapability("autoGrantPermissions", true);
-        dc.setCapability("instrumentApp", true);
-        dc.setCapability(MobileCapabilityType.APP, "cloud:com.experitest.uicatalog/.MainActivity");
-        dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.uicatalog");
-        dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".MainActivity");
-        driver = new AndroidDriver<>(new URL(CLOUD_URL), dc);
+        UiAutomator2Options options = new UiAutomator2Options()
+                .setApp("cloud:com.experitest.uicatalog/.MainActivity")
+                .setAppPackage("com.experitest.uicatalog")
+                .setAppActivity(".MainActivity")
+                .amend("digitalai:accessKey", ACCESS_KEY)
+                .amend("digitalai:appiumVersion", APPIUM_VERSION)
+                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:testName", "Run simulate capture test on Android device")
+                .amend("digitalai:autoGrantPermissions", true)
+                .amend("digitalai:instrumentApp", true);
+        driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
-
 
     private void runSimulateCapture(boolean fromURL) throws InterruptedException {
         try {
-            driver.findElement(MobileBy.AndroidUIAutomator(
+            driver.findElement(AppiumBy.androidUIAutomator(
                     "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
         } catch (NoSuchElementException e) {
             // ignore
         }
 
         driver.findElement(By.xpath("//*[@text='Camera']")).click();
-        driver.findElementByXPath("//*[@text='CAMERA API2 (JPEG)' or @id='scanner3']").click();
+        driver.findElement(AppiumBy.xpath("//*[@text='CAMERA API2 (JPEG)' or @id='scanner3']")).click();
         if (fromURL) {
             driver.executeScript("seetest:client.simulateCapture", "<FILE_URL>");
         } else {
@@ -69,7 +67,7 @@ class SimulateCaptureAndroidTest {
 
     @Test
     void simulateCaptureFromFileRepository() throws Exception {
-     runSimulateCapture(false);
+        runSimulateCapture(false);
     }
 
     @AfterEach
