@@ -24,7 +24,7 @@ class InstallOnlyForUpdateAndroidTest {
     private AndroidDriver driver = null;
 
     @BeforeEach
-    public void setUp() throws MalformedURLException {
+    void setUp() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
@@ -33,6 +33,7 @@ class InstallOnlyForUpdateAndroidTest {
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='android'")
                 .amend("digitalai:installOnlyForUpdate", true)
+                .amend("digitalai:appReleaseVersion", "1.2714") // Use the desired app release version
                 .amend("digitalai:testName", "Install application only for update test on Android device");
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
@@ -46,7 +47,7 @@ class InstallOnlyForUpdateAndroidTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         driver.quit();
     }
 }

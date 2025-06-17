@@ -24,7 +24,7 @@ class SimulateCaptureIOSTest {
     private IOSDriver driver = null;
 
     @BeforeEach
-    public void before() throws MalformedURLException {
+    void before() throws MalformedURLException {
         XCUITestOptions options = new XCUITestOptions()
                 .setApp("cloud:com.experitest.UICatalog")
                 .setBundleId("com.experitest.UICatalog")
@@ -32,13 +32,13 @@ class SimulateCaptureIOSTest {
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='ios'")
                 .amend("digitalai:testName", "Run simulate capture test on iOS device")
-                .amend("digitalai:autoGrantPermissions", true)
-                .amend("digitalai:instrumentApp", true);
+                .amend("digitalai:instrumentApp", true)
+                .amend("autoGrantPermissions", true);
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }
 
     private void runSimulateCapture(boolean fromURL) throws InterruptedException {
-        driver.findElement(AppiumBy.xpath("//*[@text='CameraAVTitle']")).click();
+        driver.findElement(AppiumBy.xpath("//*[@label='CameraAVTitle']")).click();
 
         Thread.sleep(10000); // time to wait until the image will be shown
         if (fromURL) {
@@ -62,9 +62,7 @@ class SimulateCaptureIOSTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         driver.quit();
     }
-
-
 }
