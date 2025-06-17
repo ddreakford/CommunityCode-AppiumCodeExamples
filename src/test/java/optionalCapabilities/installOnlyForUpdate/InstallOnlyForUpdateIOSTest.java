@@ -28,11 +28,11 @@ class InstallOnlyForUpdateIOSTest {
         XCUITestOptions options = new XCUITestOptions()
                 .setApp("cloud:com.experitest.ExperiBank")
                 .setBundleId("com.experitest.ExperiBank")
+                .amend("digitalai:appReleaseVersion", "1.0") // Use the desired app release version
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='ios'")
                 .amend("digitalai:installOnlyForUpdate", true)
-                .amend("digitalai:appReleaseVersion", "1.0") // Use the desired app release version
                 .amend("digitalai:testName", "Install application only for update test on iOS device");
         driver = new IOSDriver(new URL(CLOUD_URL), options);
     }

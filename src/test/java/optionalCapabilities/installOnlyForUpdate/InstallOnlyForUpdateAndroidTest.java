@@ -29,11 +29,11 @@ class InstallOnlyForUpdateAndroidTest {
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
+                .amend("digitalai:appReleaseVersion", "1.2714") // Use the desired app release version
                 .amend("digitalai:accessKey", ACCESS_KEY)
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='android'")
                 .amend("digitalai:installOnlyForUpdate", true)
-                .amend("digitalai:appReleaseVersion", "1.2714") // Use the desired app release version
                 .amend("digitalai:testName", "Install application only for update test on Android device");
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
