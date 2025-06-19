@@ -26,7 +26,7 @@ class SimulateCaptureAndroidTest {
     private AndroidDriver driver = null;
 
     @BeforeEach
-    public void before() throws MalformedURLException {
+    void before() throws MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options()
                 .setApp("cloud:com.experitest.uicatalog/.MainActivity")
                 .setAppPackage("com.experitest.uicatalog")
@@ -35,8 +35,8 @@ class SimulateCaptureAndroidTest {
                 .amend("digitalai:appiumVersion", APPIUM_VERSION)
                 .amend("digitalai:deviceQuery", "@os='android'")
                 .amend("digitalai:testName", "Run simulate capture test on Android device")
-                .amend("digitalai:autoGrantPermissions", true)
-                .amend("digitalai:instrumentApp", true);
+                .amend("digitalai:instrumentApp", true)
+                .amend("autoGrantPermissions", true);
         driver = new AndroidDriver(new URL(CLOUD_URL), options);
     }
 
@@ -71,9 +71,7 @@ class SimulateCaptureAndroidTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         driver.quit();
     }
-
-
 }
