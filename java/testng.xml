@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="AppiumTestSuite">
+    <test name="QuickStartTests">
+        <classes>
+            <class name="quickStartTests.AndroidQuickStartTest"/>
+            <class name="quickStartTests.IOSQuickStartTest"/>
+        </classes>
+    </test>
+    
+    <test name="AdvancedCommandsTests">
+        <packages>
+            <package name="advancedCommands.*"/>
+        </packages>
+    </test>
+    
+    <test name="OptionalCapabilitiesTests">
+        <packages>
+            <package name="optionalCapabilities.*"/>
+        </packages>
+    </test>
+</suite>

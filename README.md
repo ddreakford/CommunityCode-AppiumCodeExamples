@@ -1,5 +1,53 @@
 # **Appium Open Source - Code Examples**
-This project demonstrates how to use Java Appium for native applications.
+This project demonstrates how to use Appium for native applications with both Java/TestNG and Python/pytest implementations.
+
+## **Project Structure**
+
+```
+CommunityCode-AppiumCodeExamples/
+├── java/                    # Java/TestNG tests
+│   ├── build.gradle        # Java build configuration
+│   ├── testng.xml         # TestNG suite configuration
+│   └── src/test/          # Java test sources
+├── python/                 # Python/pytest tests
+│   ├── pyproject.toml     # Python project & dependencies
+│   ├── conftest.py        # Pytest configuration & fixtures
+│   └── tests/             # Python test sources
+└── shared/                 # Shared test resources
+```
+
+## **Quick Start**
+
+### Java/TestNG Tests
+```bash
+# Run Java tests
+./gradlew javaTest
+
+# Or from java directory
+cd java && ./gradlew test
+```
+
+### Python/pytest Tests
+```bash
+# Install dependencies and run Python tests
+./gradlew pythonTest
+
+# Or manually with uv
+cd python
+uv sync
+uv run pytest
+```
+
+### Run All Tests
+```bash
+./gradlew test
+```
+
+## **Requirements**
+
+- **Java**: JDK 11+, Gradle
+- **Python**: Python 3.9+, uv package manager
+- **Appium**: Appium server running on localhost:4723
 
 ## **Notes**
 * The tests run on two applications: Eribank and UIcatalog. Therefore, make sure that you have these apps\

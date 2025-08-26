@@ -1,0 +1,50 @@
+[project]
+name = "appium-code-examples"
+version = "1.0.0"
+description = "Appium test automation examples in Python"
+requires-python = ">=3.9"
+dependencies = [
+    "Appium-Python-Client>=4.1.0",
+    "pytest>=8.0.0",
+    "pytest-html>=4.1.0",
+    "opencv-python>=4.9.0",
+    "selenium>=4.15.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "flake8",
+    "mypy",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--html=reports/report.html",
+    "--self-contained-html"
+]
+markers = [
+    "android: Android-specific tests",
+    "ios: iOS-specific tests",
+    "slow: Slow running tests",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
