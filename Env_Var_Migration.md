@@ -34,6 +34,17 @@ All Java test files containing hardcoded placeholders `<CLOUD_URL>`, `<ACCESS_KE
 - **Made classes and methods public** for TestNG compatibility
 - **Added null checks** in tearDown methods
 
+### Device Query Migration
+- **Enhanced EnvironmentConfig** with device query methods:
+  - `getAndroidDeviceQuery()` and `getIOSDeviceQuery()`
+  - Component-based query building from environment variables
+  - Comprehensive validation with test abortion on malformed queries
+- **Updated 42 test files** to use EnvironmentConfig device queries instead of hardcoded values
+- **Flexible configuration options**:
+  - Component-based: `ANDROID_DEVICE_MODEL`, `ANDROID_OS_VERSION`, etc.
+  - Complete custom queries: `ANDROID_DEVICE_QUERY`, `IOS_DEVICE_QUERY`
+  - Graceful defaults: `@os='android'`, `@os='ios'`
+
 ## Python Configuration Changes
 
 ### Dependencies Added
@@ -64,7 +75,13 @@ All Java test files containing hardcoded placeholders `<CLOUD_URL>`, `<ACCESS_KE
   ACCESS_KEY=your_access_key_here
   APPIUM_VERSION=2.0.0
   
-  # Device Configuration (Optional)
+  # Device Query Configuration
+  # ANDROID_DEVICE_MODEL=Galaxy.*    # Optional: Target specific models
+  # ANDROID_OS_VERSION=1[1-3].*      # Optional: Target OS versions
+  # IOS_DEVICE_MODEL=iPhone.*        # Optional: Target specific models
+  # IOS_OS_VERSION=1[5-7].*          # Optional: Target OS versions
+  
+  # Device Configuration (Optional - for local testing)
   ANDROID_DEVICE_NAME=Android Emulator
   ANDROID_PLATFORM_VERSION=11
   IOS_DEVICE_NAME=iPhone Simulator
@@ -126,4 +143,33 @@ export APPIUM_VERSION="2.0.0"
 cp .env.example .env
 # Edit .env with your values
 ./gradlew test
+```
+
+### Device Query Examples
+
+#### Basic Device Targeting
+```bash
+# Target specific Android devices
+export ANDROID_DEVICE_MODEL="Galaxy.*"
+export ANDROID_OS_VERSION="1[1-3].*"  # Android 11-13
+
+# Target specific iOS devices  
+export IOS_DEVICE_MODEL="iPhone.*"
+export IOS_OS_VERSION="1[5-7].*"      # iOS 15-17
+```
+
+#### Custom Device Queries
+```bash
+# Complete custom queries (overrides component approach)
+export ANDROID_DEVICE_QUERY="@os='android' and @model='Pixel.*' and @osVersion='13.*'"
+export IOS_DEVICE_QUERY="@os='ios' and @model='iPhone 14.*'"
+```
+
+#### Using .env File for Device Queries
+```bash
+# In .env file
+ANDROID_DEVICE_MODEL=Galaxy.*
+ANDROID_OS_VERSION=12.*
+IOS_DEVICE_MODEL=iPhone.*
+IOS_OS_VERSION=16.*
 ```
