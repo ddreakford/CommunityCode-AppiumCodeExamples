@@ -27,7 +27,7 @@ public class ReporterDisableIOSTest {
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
                 .amend("digitalai:report.disable", true)
                 .amend("digitalai:testName", "Report disable test on iOS device");
         driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

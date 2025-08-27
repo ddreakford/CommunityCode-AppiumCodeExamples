@@ -30,7 +30,7 @@ public class InstallOnlyForUpdateAndroidTest {
                 .amend("digitalai:appReleaseVersion", "1.2714") // Use the desired app release version
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:installOnlyForUpdate", true)
                 .amend("digitalai:testName", "Install application only for update test on Android device");
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

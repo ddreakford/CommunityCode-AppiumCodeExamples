@@ -30,7 +30,7 @@ public class SimulateCaptureAndroidTest {
                 .setAppActivity(".MainActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:testName", "Run simulate capture test on Android device")
                 .amend("digitalai:instrumentApp", true)
                 .amend("autoGrantPermissions", true);

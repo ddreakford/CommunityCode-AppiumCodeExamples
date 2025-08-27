@@ -27,7 +27,7 @@ public class PerformanceTransactionForApplicationIOSTest {
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
                 .amend("digitalai:instrumentApp", true)
                 .amend("digitalai:testName", "Performance transaction for application test on iOS device");
         driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

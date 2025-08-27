@@ -37,7 +37,7 @@ public class AutomotiveProjectionAndroidTest {
                 .amend("digitalai:testName", "Android Auto quick start test")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:automotiveProjection", DHU_SCREEN_SIZE);
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }

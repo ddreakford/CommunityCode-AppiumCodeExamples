@@ -24,7 +24,7 @@ public class SetLocationAndroidTest {
         UiAutomator2Options options = new UiAutomator2Options()
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:testName", "Set location test on Android device");
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }

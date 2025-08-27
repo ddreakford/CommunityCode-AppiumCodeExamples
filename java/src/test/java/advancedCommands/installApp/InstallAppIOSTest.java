@@ -31,7 +31,7 @@ public class InstallAppIOSTest {
                 .setBundleId(APP_PACKAGE)
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
                 .amend("digitalai:testName", "Install application test on iOS device");
         driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }

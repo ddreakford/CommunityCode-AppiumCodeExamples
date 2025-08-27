@@ -26,7 +26,7 @@ public class ReleaseDeviceIOSTest {
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
                 .amend("digitalai:releaseDevice", false)
                 .amend("digitalai:testName", "Release device test on iOS device");
         driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

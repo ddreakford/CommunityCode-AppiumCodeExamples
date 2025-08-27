@@ -29,7 +29,7 @@ public class ReleaseVersionAndroidTest {
                 .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:testName", "Release version test on Android device")
                 .amend("digitalai:appReleaseVersion", APP_RELEASE_VERSION);
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

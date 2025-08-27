@@ -27,7 +27,7 @@ public class CommandScreenshotAndroidTest {
                 .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:testName", "Command screenshot test on Android device")
                 .amend("digitalai:commandScreenshot", true);
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

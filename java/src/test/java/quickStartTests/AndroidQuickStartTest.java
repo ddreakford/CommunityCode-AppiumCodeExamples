@@ -24,7 +24,7 @@ public class AndroidQuickStartTest {
                 .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:testName", "Run Quickstart test on Android device");
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }

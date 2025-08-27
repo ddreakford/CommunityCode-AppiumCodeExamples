@@ -25,7 +25,7 @@ public class IOSQuickStartTest {
                 .amend("digitalai:testName", "Run Quickstart test on iOS device")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='ios'");
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery());
         driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }
 

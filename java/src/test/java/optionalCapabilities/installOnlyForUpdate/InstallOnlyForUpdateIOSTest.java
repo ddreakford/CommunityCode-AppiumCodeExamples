@@ -29,7 +29,7 @@ public class InstallOnlyForUpdateIOSTest {
                 .amend("digitalai:appReleaseVersion", "1.0") // Use the desired app release version
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
                 .amend("digitalai:installOnlyForUpdate", true)
                 .amend("digitalai:testName", "Install application only for update test on iOS device");
         driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

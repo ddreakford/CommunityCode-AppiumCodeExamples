@@ -28,7 +28,7 @@ public class PerformanceTransactionForApplicationAndroidTest {
                 .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:instrumentApp", true)
                 .amend("digitalai:testName", "Performance transaction for application test on Android device");
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

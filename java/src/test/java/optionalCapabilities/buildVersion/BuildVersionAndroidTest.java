@@ -28,7 +28,7 @@ public class BuildVersionAndroidTest {
                 .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='android'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:testName", "Build version test on Android device")
                 .amend("digitalai:appBuildVersion", APP_BUILD_VERSION);
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);

@@ -27,7 +27,7 @@ public class SimulateCaptureIOSTest {
                 .setBundleId("com.experitest.UICatalog")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", "@os='ios'")
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
                 .amend("digitalai:testName", "Run simulate capture test on iOS device")
                 .amend("digitalai:instrumentApp", true)
                 .amend("autoGrantPermissions", true);
