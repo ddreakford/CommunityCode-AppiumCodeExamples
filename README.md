@@ -99,7 +99,7 @@ These are special commands using the executeScript command.
 
 
 ## Documentation
-To learn more about Continuous Testing Cloud usage, features and best practices, see [Test Execution Home](https://docs.digital.ai/bundle/TE/page/test_execution_home.html)
+To learn more about Testing Cloud usage, features and best practices, see [Test Execution Home](https://docs.digital.ai/bundle/TE/page/test_execution_home.html)
 
 ## Support
 If you encounter an issue that is not covered here or in our online documentation, contact us at [support@digital.ai](mailto:support@digital.ai).

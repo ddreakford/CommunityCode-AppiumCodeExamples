@@ -90,7 +90,7 @@ All Java test files containing hardcoded placeholders `<CLOUD_URL>`, `<ACCESS_KE
 
 ### Development Flexibility
 - **Local development**: Works with default localhost:4723 without any configuration
-- **Cloud integration**: Seamlessly works with Digital.ai Continuous Testing Cloud
+- **Cloud integration**: Seamlessly works with Digital.ai Testing Cloud
 - **CI/CD friendly**: System environment variables take precedence
 
 ## Migration Benefits
