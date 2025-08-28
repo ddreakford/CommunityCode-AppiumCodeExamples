@@ -43,11 +43,33 @@ uv run pytest
 ./gradlew test
 ```
 
+## **Container Testing**
+
+For production-ready, isolated test execution, use the containerized testing environment:
+
+```bash
+# Quick start with Docker Compose
+docker-compose up --build
+
+# Run specific test suites
+docker-compose run --rm appium-tests --java --tests=quickStart
+docker-compose run --rm appium-tests --python --platform=android
+docker-compose run --rm appium-tests --all --parallel=6
+```
+
+📋 **Complete container documentation**: See [CONTAINER_TESTING.md](CONTAINER_TESTING.md)
+
 ## **Requirements**
 
+### Local Development
 - **Java**: JDK 11+, Gradle
 - **Python**: Python 3.9+, uv package manager
 - **Appium**: Appium server running on localhost:4723
+
+### Container Testing (Recommended)
+- **Docker**: Docker Engine 20.10+
+- **Docker Compose**: 2.0+ (optional)
+- **Digital.ai Testing Cloud**: Access credentials
 
 ## **Notes**
 * The tests run on two applications: Eribank and UIcatalog. Therefore, make sure that you have these apps\

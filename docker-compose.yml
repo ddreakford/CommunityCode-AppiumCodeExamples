@@ -1,0 +1,106 @@
+version: '3.8'
+
+services:
+  appium-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: appium-test-runner
+    environment:
+      # Required Digital.ai Testing Cloud configuration
+      - CLOUD_URL=${CLOUD_URL:-http://localhost:4723}
+      - ACCESS_KEY=${ACCESS_KEY:-}
+      - APPIUM_VERSION=${APPIUM_VERSION:-2.0.0}
+      
+      # Optional device query configuration
+      - ANDROID_DEVICE_QUERY=${ANDROID_DEVICE_QUERY:-}
+      - IOS_DEVICE_QUERY=${IOS_DEVICE_QUERY:-}
+      - ANDROID_DEVICE_MODEL=${ANDROID_DEVICE_MODEL:-}
+      - ANDROID_OS_VERSION=${ANDROID_OS_VERSION:-}
+      - IOS_DEVICE_MODEL=${IOS_DEVICE_MODEL:-}
+      - IOS_OS_VERSION=${IOS_OS_VERSION:-}
+      
+      # Optional local development configuration
+      - ANDROID_DEVICE_NAME=${ANDROID_DEVICE_NAME:-Android Emulator}
+      - ANDROID_PLATFORM_VERSION=${ANDROID_PLATFORM_VERSION:-11}
+      - IOS_DEVICE_NAME=${IOS_DEVICE_NAME:-iPhone Simulator}
+      - IOS_PLATFORM_VERSION=${IOS_PLATFORM_VERSION:-15.0}
+    
+    volumes:
+      # Mount reports and logs directories for persistence
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+      # Mount .env file if it exists locally
+      - ./.env:/app/.env:ro
+    
+    # Default command - can be overridden
+    command: ["--all", "--parallel=4"]
+    
+    # Resource limits (adjust based on your system)
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+        reservations:
+          cpus: '2.0'
+          memory: 2G
+    
+    # Restart policy for CI/CD environments
+    restart: "no"
+    
+    # Network configuration
+    networks:
+      - appium-network
+
+  # Optional: Add a separate service for development/debugging
+  appium-tests-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+    container_name: appium-test-runner-dev
+    environment:
+      # Same environment variables as above
+      - CLOUD_URL=${CLOUD_URL:-http://localhost:4723}
+      - ACCESS_KEY=${ACCESS_KEY:-}
+      - APPIUM_VERSION=${APPIUM_VERSION:-2.0.0}
+      - ANDROID_DEVICE_QUERY=${ANDROID_DEVICE_QUERY:-}
+      - IOS_DEVICE_QUERY=${IOS_DEVICE_QUERY:-}
+      - ANDROID_DEVICE_MODEL=${ANDROID_DEVICE_MODEL:-}
+      - ANDROID_OS_VERSION=${ANDROID_OS_VERSION:-}
+      - IOS_DEVICE_MODEL=${IOS_DEVICE_MODEL:-}
+      - IOS_OS_VERSION=${IOS_OS_VERSION:-}
+      - ANDROID_DEVICE_NAME=${ANDROID_DEVICE_NAME:-Android Emulator}
+      - ANDROID_PLATFORM_VERSION=${ANDROID_PLATFORM_VERSION:-11}
+      - IOS_DEVICE_NAME=${IOS_DEVICE_NAME:-iPhone Simulator}
+      - IOS_PLATFORM_VERSION=${IOS_PLATFORM_VERSION:-15.0}
+    
+    volumes:
+      # Mount entire project for development
+      - .:/app
+      - gradle-cache:/home/testrunner/.gradle
+      - uv-cache:/home/testrunner/.cache/uv
+    
+    # Override entrypoint for interactive development
+    entrypoint: ["/bin/bash"]
+    stdin_open: true
+    tty: true
+    
+    # Development profile (use with --profile dev)
+    profiles:
+      - dev
+    
+    networks:
+      - appium-network
+
+networks:
+  appium-network:
+    driver: bridge
+
+volumes:
+  gradle-cache:
+    driver: local
+  uv-cache:
+    driver: local
