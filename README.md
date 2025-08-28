@@ -1,4 +1,4 @@
-# **Appium Open Source - Code Examples**
+# **Appium Open Source with Digital.ai Testing - Code Examples**
 This project demonstrates how to use Appium for native applications with both Java/TestNG and Python/pytest implementations.
 
 ## **Project Structure**
@@ -9,11 +9,24 @@ CommunityCode-AppiumCodeExamples/
 │   ├── build.gradle        # Java build configuration
 │   ├── testng.xml         # TestNG suite configuration
 │   └── src/test/          # Java test sources
+│       ├── java/          # Test classes with environment config
+│       └── resources/     # Test resources (images, etc.)
 ├── python/                 # Python/pytest tests
 │   ├── pyproject.toml     # Python project & dependencies
 │   ├── conftest.py        # Pytest configuration & fixtures
 │   └── tests/             # Python test sources
-└── shared/                 # Shared test resources
+├── scripts/                # Test execution scripts
+│   └── run_tests.py       # Python test runner with parallel execution
+├── reports/                # Generated test reports (HTML/JSON)
+├── logs/                   # Test execution logs
+├── shared/                 # Shared test resources
+├── Dockerfile              # Multi-stage container definition
+├── docker-compose.yml      # Container orchestration
+├── .dockerignore          # Docker build context optimization
+├── .env.example           # Environment configuration template
+├── CONTAINER_TESTING.md   # Complete container testing guide
+├── Env_Var_Migration.md   # Environment variable documentation
+└── build.gradle           # Root build configuration
 ```
 
 ## **Quick Start**
