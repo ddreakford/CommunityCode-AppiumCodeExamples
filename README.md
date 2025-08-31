@@ -60,6 +60,7 @@ uv run pytest
 
 For production-ready, isolated test execution, use the containerized testing environment:
 
+### Docker Compose (Recommended)
 ```bash
 # Quick start with Docker Compose
 docker-compose up --build
@@ -68,6 +69,27 @@ docker-compose up --build
 docker-compose run --rm appium-tests --java --tests=quickStart
 docker-compose run --rm appium-tests --python --platform=android
 docker-compose run --rm appium-tests --all --parallel=6
+```
+
+### Direct Docker Commands
+```bash
+# Get help and see all available options
+docker run --rm appium-code-examples --help
+
+# Run all tests with environment file
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --all --parallel=4
+
+# Run specific test types
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --tests=quickStart
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --python --platform=android
+
+# Examples of available options:
+# --all                    Run all tests (Java and Python)
+# --java                   Run Java/TestNG tests only  
+# --python                 Run Python/pytest tests only
+# --tests=FILTER          Filter tests (quickStart, advanced, optional)
+# --platform=FILTER       Filter by platform (android, ios)
+# --parallel=N            Number of parallel processes (default: 4)
 ```
 
 📋 **Complete container documentation**: See [CONTAINER_TESTING.md](CONTAINER_TESTING.md)

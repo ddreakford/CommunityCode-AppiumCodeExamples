@@ -349,12 +349,21 @@ def parse_arguments():
         description="Appium Test Runner - Containerized Test Execution",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  %(prog)s --all --parallel=4                    # Run all tests with 4 parallel workers
-  %(prog)s --java --tests=quickStart            # Run Java quick start tests only
-  %(prog)s --python --platform=android          # Run Python Android tests only
-  %(prog)s --java --python --parallel=2         # Run both Java and Python tests
-  %(prog)s --generate-reports-only              # Generate reports from existing logs
+Container Usage Examples:
+  docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --all --parallel=4
+    # Run all tests with 4 parallel workers
+
+  docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --tests=quickStart
+    # Run Java quick start tests only
+
+  docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --python --platform=android
+    # Run Python Android tests only
+
+  docker-compose run --rm appium-tests --all --parallel=2
+    # Run with Docker Compose (recommended)
+
+Local Script Usage (if running outside container):
+  python scripts/run_tests.py --all --parallel=4
         """
     )
     
