@@ -45,6 +45,4 @@ target-version = ["py39"]
 profile = "black"
 line_length = 88
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+# No build system needed - this is a test project, not an installable package

@@ -13,9 +13,13 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv (fast Python package installer)
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-ENV PATH="/root/.cargo/bin:$PATH"
+# Install uv system-wide so it's accessible to all users
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    mv /root/.local/bin/uv /usr/local/bin/uv && \
+    chmod +x /usr/local/bin/uv
+
+# Verify uv installation
+RUN uv --version
 
 # Set working directory
 WORKDIR /app
@@ -28,9 +32,12 @@ WORKDIR /app/java
 RUN ./gradlew build --no-daemon --exclude-task test || true
 RUN ./gradlew dependencies --no-daemon || true
 
+# Ensure .gradle directory exists for copying to runtime stage
+RUN mkdir -p /root/.gradle
+
 # Build Python dependencies
 WORKDIR /app/python
-RUN uv sync --frozen
+RUN uv sync
 
 # Stage 2: Runtime environment
 FROM eclipse-temurin:11-jdk-jammy AS runtime
@@ -42,28 +49,36 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install uv for runtime
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
-ENV PATH="/root/.cargo/bin:$PATH"
+# Install uv system-wide for runtime
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    mv /root/.local/bin/uv /usr/local/bin/uv && \
+    chmod +x /usr/local/bin/uv
 
 # Create non-root user for security
 RUN useradd -m -u 1000 testrunner && \
     mkdir -p /app /app/reports /app/logs && \
     chown -R testrunner:testrunner /app
 
-# Switch to non-root user
-USER testrunner
-WORKDIR /app
-
 # Copy built project from builder stage
 COPY --from=builder --chown=testrunner:testrunner /app .
+
+# Ensure critical directories are copied properly (backup copies)
+COPY --chown=testrunner:testrunner scripts/ /app/scripts/
+COPY --chown=testrunner:testrunner java/ /app/java/
+COPY --chown=testrunner:testrunner python/ /app/python/
 
 # Copy Gradle wrapper and cached dependencies
 COPY --from=builder --chown=testrunner:testrunner /root/.gradle /home/testrunner/.gradle
 
-# Set up Python virtual environment
-WORKDIR /app/python
-RUN uv sync --frozen
+# Ensure gradlew has execute permissions (if it exists)
+RUN if [ -f /app/java/gradlew ]; then chmod +x /app/java/gradlew; else echo "Warning: gradlew not found"; fi
+
+# Switch to non-root user
+USER testrunner
+WORKDIR /app
+
+# Python virtual environment was already created in builder stage and copied over
+WORKDIR /app
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
@@ -72,7 +87,7 @@ ENV PATH="/app/python/.venv/bin:$PATH"
 
 # Create entrypoint script
 WORKDIR /app
-RUN echo '#!/bin/bash\nset -e\nif [ "$#" -eq 0 ]; then\n    python3.11 scripts/run_tests.py --help\nelse\n    python3.11 scripts/run_tests.py "$@"\nfi' > /app/entrypoint.sh && \
+RUN echo '#!/bin/bash\nset -e\nif [ "$#" -eq 0 ]; then\n    python3.11 /app/scripts/run_tests.py --help\nelse\n    python3.11 /app/scripts/run_tests.py "$@"\nfi' > /app/entrypoint.sh && \
     chmod +x /app/entrypoint.sh
 
 # Health check

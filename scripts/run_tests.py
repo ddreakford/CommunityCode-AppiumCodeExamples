@@ -346,7 +346,17 @@ class TestRunner:
 def parse_arguments():
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(
-        description="Appium Test Runner - Containerized Test Execution",
+        prog="docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples",
+        description="""
+🐳 Appium Test Runner - Containerized Test Execution
+
+This tool is designed to run inside a Docker container with support for:
+• Parallel test execution with configurable workers
+• Java/TestNG and Python/pytest test suites  
+• Environment variable configuration
+• HTML report generation and test result aggregation
+• Digital.ai Testing Cloud integration
+        """.strip(),
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Container Usage Examples:

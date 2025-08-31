@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.openqa.selenium.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.testng.Assert.fail;
 import utils.EnvironmentConfig;
 
 /**
