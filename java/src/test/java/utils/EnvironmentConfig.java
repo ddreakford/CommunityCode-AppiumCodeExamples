@@ -47,6 +47,7 @@ public class EnvironmentConfig {
         // Check for custom complete query first
         String customQuery = getEnvVar(platform.toUpperCase() + "_DEVICE_QUERY", "");
         if (!customQuery.isEmpty()) {
+            System.out.println("Custom query: " + customQuery);
             validateDeviceQuery(customQuery, platform);
             return customQuery;
         }
@@ -92,17 +93,17 @@ public class EnvironmentConfig {
                                      ". Invalid query: " + query);
         }
         
-        // Validate basic structure patterns
-        Pattern validPattern = Pattern.compile("^@\\w+='[^']*'(\\s+and\\s+@\\w+='[^']*')*$");
-        if (!validPattern.matcher(query).matches()) {
-            throw new RuntimeException("Device query has invalid syntax for platform: " + platform + 
-                                     ". Query must follow pattern '@key='value'' [and @key2='value2']. Invalid query: " + query);
+        // Validate basic structure patterns - allow flexible query syntax including functions
+        // This supports both simple @key='value' and complex contains(@key, 'value') syntax
+        if (!query.contains("@")) {
+            throw new RuntimeException("Device query must contain at least one attribute reference (@key) for platform: " + platform + 
+                                     ". Invalid query: " + query);
         }
         
-        // Platform-specific validation
-        String expectedOs = "@os='" + platform + "'";
-        if (!query.contains(expectedOs)) {
-            throw new RuntimeException("Device query must contain '" + expectedOs + "' for platform: " + platform + 
+        // Platform-specific validation - check for platform reference (flexible syntax)
+        String platformReference = "@os='" + platform + "'";
+        if (!query.contains(platformReference)) {
+            throw new RuntimeException("Device query must contain platform specification '" + platformReference + "' for platform: " + platform + 
                                      ". Invalid query: " + query);
         }
         
