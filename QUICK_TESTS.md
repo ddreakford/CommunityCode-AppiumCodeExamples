@@ -101,15 +101,23 @@ If tests run slowly:
 
 ## Expected Test Results
 
-### Successful Connection
-- Tests attempt to create Appium sessions
-- Specific error messages about device availability or authentication
-- HTML reports show connection attempts
+### ✅ Successful Connection (Current Status)
+- Tests create Appium sessions successfully
+- Device queries find matching devices in Digital.ai Testing Cloud
+- Test execution reaches actual test logic and runs for several minutes
+- HTML reports show detailed test execution results
+- Custom device queries with `contains()` functions work correctly
 
-### Connection Failures (Expected without valid cloud access)
-- `UnresolvedAddressException`: URL format issue (should be fixed)
-- `ConnectException`: Network connectivity issue
-- `SessionNotCreatedException`: Authentication or device availability issue
+### ❌ Previous Connection Issues (Now Resolved)
+- ~~`UnresolvedAddressException`: URL format issue~~ **FIXED** ✅
+- ~~`ConnectException`: Network connectivity issue~~ **FIXED** ✅  
+- ~~Device query validation errors~~ **FIXED** ✅
+
+### Current Test Execution Behavior
+- **Android Platform**: Tests execute successfully and run for several minutes
+- **iOS Platform**: Tests connect but may encounter device-specific runtime errors
+- **Advanced Commands**: Some may show `UnsupportedCommandException` depending on device capabilities
+- **Quick Start Tests**: Best for initial validation of connectivity
 
 ### Infrastructure Success Indicators
 - ✅ Environment validation passes
