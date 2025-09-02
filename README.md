@@ -51,7 +51,7 @@ CommunityCode-AppiumCodeExamples/
 └── build.gradle           # Root build configuration
 ```
 
-## **Quick start: Containerized Testing**
+## **Quick start: Containerized option**
 Use this option to run tests without separately installing all of the required dependencies.
 
 ### Docker Compose (Recommended)
@@ -129,9 +129,9 @@ These are special commands using the executeScript command.
   - stopStepsGroup: End a group mark.
 
 
-## **Quick start (for natively installed dependencies)**
+## **Quick start (with natively installed dependencies)**
 
-### Java/TestNG Tests
+### Java/TestNG tests
 ```bash
 # Run Java tests
 ./gradlew javaTest
@@ -140,7 +140,7 @@ These are special commands using the executeScript command.
 cd java && ./gradlew test
 ```
 
-### Python/pytest Tests
+### Python/pytest tests
 ```bash
 # Install dependencies and run Python tests
 ./gradlew pythonTest
@@ -151,7 +151,7 @@ uv sync
 uv run pytest
 ```
 
-### Run All Tests
+### Run all tests
 ```bash
 ./gradlew test
 ```
