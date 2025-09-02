@@ -1,5 +1,27 @@
 # **Appium Open Source with Digital.ai Testing - Code Examples**
-This project demonstrates how to use Appium for native applications with both Java/TestNG and Python/pytest implementations.
+This project demonstrates how to run Appium based tests on devices hosted by Digital.ai Testing Cloud. Samples are included for Java/TestNG and Python/pytest implementations. 
+
+While the "containerized" option documented below is preferred, instructions are provided for natively installed dependencies, as well.
+
+## **Requirements**
+
+### Container Testing (Recommended)
+- **Docker**: Docker Engine 20.10+
+- **Docker Compose**: 2.0+ (optional)
+- **Digital.ai Testing Cloud**: Access credentials
+
+### Local Test Development (natively installed dependencies)
+- **Java**: JDK 11+, Gradle
+- **Python**: Python 3.9+, uv package manager
+
+### Local Appium Server (optional)
+A local Appium server is optional, as tests can be seamlesly run against devices hosted in the Digital.ai Testing Cloud whether dependencies are containerized or managed natively.
+- **Appium**: Appium server running on localhost:4723
+
+## **Application Under Test**
+* The tests in this repo are generally run on two applications: Eribank and UIcatalog. The tests assume the applicatin under test is available for installation on the target device. If you are using Digital.ai Testing Cloud and the application has been made available to your project, application installion on the target device can be triggered via Capabilities that are specified for the test.
+* **Note/Reminder**: Application version changes can lead differences in xpath locators. This is a common cause of test failures following application updates.
+
 
 ## **Project Structure**
 
@@ -29,36 +51,8 @@ CommunityCode-AppiumCodeExamples/
 └── build.gradle           # Root build configuration
 ```
 
-## **Quick Start**
-
-### Java/TestNG Tests
-```bash
-# Run Java tests
-./gradlew javaTest
-
-# Or from java directory
-cd java && ./gradlew test
-```
-
-### Python/pytest Tests
-```bash
-# Install dependencies and run Python tests
-./gradlew pythonTest
-
-# Or manually with uv
-cd python
-uv sync
-uv run pytest
-```
-
-### Run All Tests
-```bash
-./gradlew test
-```
-
-## **Container Testing**
-
-For production-ready, isolated test execution, use the containerized testing environment:
+## **Quick start: Containerized Testing**
+Use this option to run tests without separately installing all of the required dependencies.
 
 ### Docker Compose (Recommended)
 ```bash
@@ -92,39 +86,20 @@ docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examp
 # --parallel=N            Number of parallel processes (default: 4)
 ```
 
-📋 **Complete container documentation**: See [CONTAINER_TESTING.md](CONTAINER_TESTING.md)
-
-## **Requirements**
-
-### Local Development
-- **Java**: JDK 11+, Gradle
-- **Python**: Python 3.9+, uv package manager
-- **Appium**: Appium server running on localhost:4723
-
-### Container Testing (Recommended)
-- **Docker**: Docker Engine 20.10+
-- **Docker Compose**: 2.0+ (optional)
-- **Digital.ai Testing Cloud**: Access credentials
-
-## **Notes**
-* The tests run on two applications: Eribank and UIcatalog. Therefore, make sure that you have these apps\
-in your cloud.
-* Different versions of different applications can have differences in the xpath.  If one test fails on xpath,\
- change it to the correct one.
-
-
-## **Android and iOS Testing**
-Most commands and capabilities have two implementations: one for Android and the other for IOS.
+📋 See [CONTAINER_TESTING.md](CONTAINER_TESTING.md) for more documentation on the containerized option. 
 
 
 ## **Project structure**
+
+### **Android and iOS Testing**
+Most commands and capabilities have two implementations: one for Android and the other for IOS.
+
 ### Package & Classes Details
 
-#### quickStartTests
+#### **quickStartTests**
 This package includes basic tests for Android and ios. Some basic Appium commands are present in this package such as click(), findElement(), and sendKeys().
 
-
-#### optionalCapabilities
+#### **optionalCapabilities**
 This package uses optional capabilities that can be used to run the Appium test. Aside from the mandatory capabilities, you can set the following optional capabilities:
 - buildVersion: Install/launch the app by build version.
 - commandScreenshot: In video report, take a screenshot before and after every action when commandScreenshot is set to true.
@@ -134,8 +109,7 @@ This package uses optional capabilities that can be used to run the Appium test.
 - releaseVersion: Install/launch the app by release version.
 - reportDisable: Do not generate a report.
 
-
-#### advancedCommands
+#### **advancedCommands**
 These are special commands using the executeScript command. 
   - adbPushFile: Perform the ADB push file to device command.
   - adbPullFile: Perform the ADB pull file from device command.
@@ -153,6 +127,34 @@ These are special commands using the executeScript command.
   - simulateCapture: Simulate use of the camera by injecting an image file to the camera preview screen.
   - startStepsGroup: Start a group mark.
   - stopStepsGroup: End a group mark.
+
+
+## **Quick start (for natively installed dependencies)**
+
+### Java/TestNG Tests
+```bash
+# Run Java tests
+./gradlew javaTest
+
+# Or from java directory
+cd java && ./gradlew test
+```
+
+### Python/pytest Tests
+```bash
+# Install dependencies and run Python tests
+./gradlew pythonTest
+
+# Or manually with uv
+cd python
+uv sync
+uv run pytest
+```
+
+### Run All Tests
+```bash
+./gradlew test
+```
 
 
 ## Documentation
