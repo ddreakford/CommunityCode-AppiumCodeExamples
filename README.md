@@ -54,12 +54,6 @@ CommunityCode-AppiumCodeExamples/
 ## **Quick start: Containerized option**
 Use this option to run tests without separately installing all of the required dependencies.
 
-### Building the Docker Container
-```bash
-# Build the Docker image
-docker build -t appium-code-examples .
-```
-
 ### Docker Compose (Recommended)
 ```bash
 # Quick start with Docker Compose
@@ -73,6 +67,9 @@ docker-compose run --rm appium-tests --all --parallel=6
 
 ### Direct Docker Commands
 ```bash
+# Build the Docker image
+docker build -t appium-code-examples .
+
 # Get help and see all available options
 docker run --rm appium-code-examples --help
 
