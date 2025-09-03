@@ -31,7 +31,7 @@ public class IOSQuickStartTest {
 
     @Test
     public void runQuickStartIOSNative() {
-        driver.rotate(ScreenOrientation.PORTRAIT);
+        // driver.rotate(ScreenOrientation.PORTRAIT);
         driver.findElement(By.xpath("//*[@name='usernameTextField']")).sendKeys("company");
         driver.findElement(By.xpath("//*[@name='passwordTextField']")).sendKeys("company");
         driver.findElement(By.xpath("//*[@name='loginButton']")).click();
