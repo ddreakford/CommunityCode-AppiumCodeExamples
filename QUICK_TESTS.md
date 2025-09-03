@@ -10,13 +10,28 @@ This document provides quick tests to verify your containerized Appium test envi
 
 ## Quick Test Commands
 
-### 1. Help Command Test
+### 1. Docker Container Build Test
+```bash
+docker build -t appium-code-examples .
+```
+**Expected**: 
+- Build completes successfully without errors
+- Image is created and available locally
+- Multi-stage build processes Java and Python dependencies
+
+**Verify the image exists**:
+```bash
+docker images appium-code-examples
+```
+**Expected**: Shows the newly built image with tag `latest`
+
+### 2. Help Command Test
 ```bash
 docker run --rm appium-code-examples --help
 ```
 **Expected**: Displays help information with container usage examples
 
-### 2. Environment Validation Test
+### 3. Environment Validation Test
 ```bash
 docker run --rm --env-file .env  -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --java --tests=quickStart
 ```
@@ -25,13 +40,13 @@ docker run --rm --env-file .env  -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/
 - Test compilation succeeds
 - Connection attempts to Digital.ai Testing Cloud
 
-### 3. Docker Compose Test
+### 4. Docker Compose Test
 ```bash
 docker-compose run --rm appium-tests --java --tests=quickStart
 ```
 **Expected**: Same as above but using Docker Compose orchestration
 
-### 4. Parallel Execution Test
+### 5. Parallel Execution Test
 ```bash
 docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all --parallel=2
 ```
@@ -40,7 +55,7 @@ docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/a
 - HTML reports generated in `./reports/`
 - Execution logs created in `./logs/`
 
-### 5. Report Generation Verification
+### 6. Report Generation Verification
 ```bash
 # After running tests, check reports
 ls -la reports/
