@@ -54,6 +54,12 @@ CommunityCode-AppiumCodeExamples/
 ## **Quick start: Containerized option**
 Use this option to run tests without separately installing all of the required dependencies.
 
+📋 See [CONTAINER_TESTING.md](CONTAINER_TESTING.md) for full documentation of this option.
+
+### Prereq: Environment variables
+ **Recommended:** Create a `.env` file as documented in [CONTAINER_TESTING.md](CONTAINER_TESTING.md)
+
+
 ### Docker Compose (Recommended)
 ```bash
 # Quick start with Docker Compose
@@ -88,9 +94,6 @@ docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examp
 # --platform=FILTER       Filter by platform (android, ios)
 # --parallel=N            Number of parallel processes (default: 4)
 ```
-
-📋 See [CONTAINER_TESTING.md](CONTAINER_TESTING.md) for more documentation on the containerized option. 
-
 
 ## **Project structure**
 
