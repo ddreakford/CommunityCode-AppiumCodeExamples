@@ -62,9 +62,6 @@ Use this option to run tests without separately installing all of the required d
 
 ### Docker Compose (Recommended)
 ```bash
-# Quick start with Docker Compose
-docker-compose up --build
-
 # Run specific test suites
 docker-compose run --rm appium-tests --java --tests=quickStart
 docker-compose run --rm appium-tests --python --platform=android
