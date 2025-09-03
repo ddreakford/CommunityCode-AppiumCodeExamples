@@ -2,6 +2,8 @@
 """
 Appium Test Runner - Containerized Test Execution
 Supports parallel execution of Java/TestNG and Python/pytest tests
+- Java tests are run via TestNG
+- Python tests are run via pytest
 """
 
 import argparse
@@ -265,14 +267,14 @@ class TestRunner:
         
         # Print summary to console
         print(f"\n{'='*60}")
-        print("📋 TEST EXECUTION SUMMARY")
+        print("📋 TEST SUITES EXECUTION SUMMARY")
         print(f"{'='*60}")
-        print(f"Total Tests: {summary['total_tests']}")
-        print(f"Passed: {summary['passed']} ✅")
-        print(f"Failed: {summary['failed']} ❌")
-        print(f"Success Rate: {summary['success_rate']:.1f}%")
-        print(f"Reports: {self.reports_dir}")
-        print(f"Logs: {self.logs_dir}")
+        print(f"Test Suites: {summary['total_tests']}")
+        print(f"Suites Passed: {summary['passed']} ✅")
+        print(f"Suites Failed: {summary['failed']} ❌")
+        print(f"Suite Success Rate: {summary['success_rate']:.1f}%")
+        print(f"Test Case Reports: {self.reports_dir}")
+        print(f"Test Run Logs: {self.logs_dir}")
         print(f"{'='*60}")
         
         return summary_file
@@ -307,7 +309,7 @@ class TestRunner:
             <div class="stats">
                 <div class="stat total">
                     <h3>{summary['total_tests']}</h3>
-                    <p>Total Tests</p>
+                    <p>Total Test Suites</p>
                 </div>
                 <div class="stat passed">
                     <h3>{summary['passed']}</h3>
