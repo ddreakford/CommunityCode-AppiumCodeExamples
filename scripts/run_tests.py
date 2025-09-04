@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Appium Test Runner - Containerized Test Execution
+Appium Test Runner
+Designed for execution within a container; but can be run standalone
 Supports parallel execution of Java/TestNG and Python/pytest tests
 - Java tests are run via TestNG
 - Python tests are run via pytest
