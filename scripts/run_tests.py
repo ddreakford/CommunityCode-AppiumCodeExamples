@@ -65,7 +65,7 @@ class TestRunner:
         print("✅ Environment validation complete")
         return True
 
-    def run_java_tests(self, test_filter: Optional[str] = None) -> Tuple[bool, str]:
+    def run_java_tests(self, test_filter: Optional[str] = None, thread_count: int = 4) -> Tuple[bool, str]:
         """Run Java/TestNG tests using Gradle"""
         print("☕ Starting Java/TestNG tests...")
         
@@ -88,6 +88,12 @@ class TestRunner:
         
         # Configure HTML reports
         cmd.extend(["-Dtest.html.report=true"])
+        
+        # Add parallel execution properties
+        cmd.extend([
+            f"-Dtestng.parallel=methods",
+            f"-Dtestng.thread-count={thread_count}"
+        ])
         
         log_file = self.logs_dir / f"java_tests_{int(time.time())}.log"
         
@@ -200,7 +206,7 @@ class TestRunner:
             future_to_spec = {}
             for spec in test_specs:
                 if spec["type"] == "java":
-                    future = executor.submit(self.run_java_tests, spec.get("filter"))
+                    future = executor.submit(self.run_java_tests, spec.get("filter"), max_workers)
                 else:  # python
                     future = executor.submit(self.run_python_tests, spec.get("filter"))
                 future_to_spec[future] = spec
