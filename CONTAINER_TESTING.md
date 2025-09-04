@@ -87,24 +87,27 @@ python run_tests.py [OPTIONS]
 | `--python` | Run Python/pytest tests only | `--python --platform=android` |
 | `--tests=FILTER` | Filter tests by name | `--tests=quickStart` |
 | `--platform=FILTER` | Filter by platform | `--platform=android` |
-| `--parallel=N` | Number of parallel processes (default: 4) | `--parallel=6` |
+| `--parallel=N` | Number of parallel workers (default: 4) | `--parallel=6` |
 | `--generate-reports-only` | Generate reports from existing logs | `--generate-reports-only` |
 | `--help` | Show help message | `--help` |
 
 ### Examples
 
 ```bash
-# Run all tests with maximum parallelism
+# Conservative execution (development/laptops)
+python run_tests.py --all --parallel=2
+
+# Moderate execution (CI/CD pipelines)
+python run_tests.py --all --parallel=4
+
+# High-performance execution (powerful servers)
 python run_tests.py --all --parallel=8
 
-# Run only Java quick start tests
-python run_tests.py --java --tests=quickStart
+# Run only Java quick start tests with parallelism
+python run_tests.py --java --tests=quickStart --parallel=4
 
-# Run Python tests for Android platform
-python run_tests.py --python --platform=android
-
-# Run both Java and Python with moderate parallelism
-python run_tests.py --java --python --parallel=2
+# Run Python Android tests with high parallelism
+python run_tests.py --python --platform=android --parallel=6
 ```
 
 ## Test Filtering
@@ -312,10 +315,27 @@ grep -i "error\|failed\|exception" logs/*.log
 ## Performance Tuning
 
 ### Parallel Execution Guidelines
-- **Local development**: 2-4 parallel processes
-- **CI/CD environments**: 4-8 parallel processes  
-- **Powerful servers**: 8+ parallel processes
-- **Memory considerations**: ~512MB per parallel process
+
+The test runner implements **two-level parallelism** for maximum efficiency:
+
+#### **Level 1: Test Suite Parallelism**
+- Java and Python test suites run in separate parallel processes
+- Controlled by the `--parallel=N` parameter
+
+#### **Level 2: TestNG Method Parallelism** 
+- Java tests execute multiple TestNG methods concurrently within each suite
+- Uses TestNG's `parallel="methods"` configuration
+- [For simplicity] Thread count matches the `--parallel` value
+
+#### **Recommended Settings**
+- **Local development**: `--parallel=2` to `--parallel=4`
+  - Good balance between speed and system resources
+- **CI/CD environments**: `--parallel=4` to `--parallel=8`
+  - Optimal for automated build pipelines  
+- **High-performance servers**: `--parallel=8` to `--parallel=16`
+  - Maximize throughput on powerful hardware
+- **Memory considerations**: ~512MB per parallel worker
+  - Monitor system memory usage during execution
 
 ### Optimization Tips
 1. **Use appropriate parallelism** based on available CPU cores

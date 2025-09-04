@@ -65,7 +65,7 @@ Use this option to run tests without separately installing all of the required d
 # Run specific test suites
 docker-compose run --rm appium-tests --java --tests=quickStart
 docker-compose run --rm appium-tests --python --platform=android
-docker-compose run --rm appium-tests --all --parallel=6
+docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel workers
 ```
 
 ### Direct Docker Commands
@@ -77,7 +77,7 @@ docker build -t appium-code-examples .
 docker run --rm appium-code-examples --help
 
 # Run all tests with environment file
-docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --all --parallel=4
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --all --parallel=4  # 4 parallel workers
 
 # Run specific test types
 docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --tests=quickStart
@@ -89,7 +89,37 @@ docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examp
 # --python                 Run Python/pytest tests only
 # --tests=FILTER          Filter tests (quickStart, advanced, optional)
 # --platform=FILTER       Filter by platform (android, ios)
-# --parallel=N            Number of parallel processes (default: 4)
+# --parallel=N            Number of parallel workers (default: 4)
+```
+
+## **Parallel Test Execution**
+
+The test runner uses two levels of parallelism:
+
+### **Suite-Level Parallelism**
+- Java and Python test suites run simultaneously in separate processes
+- Controlled by `--parallel=N` parameter (default: 4 workers)
+
+### **TestNG Method-Level Parallelism** 
+- Java tests use TestNG's `parallel="methods"` for concurrent test method execution
+- [For simplicity] Thread count matches the `--parallel` value
+
+### **Parallel Execution Guidelines**
+- **Local development**: `--parallel=2` to `--parallel=4`
+- **CI/CD environments**: `--parallel=4` to `--parallel=8` 
+- **High-performance servers**: `--parallel=8+`
+- **Memory consideration**: ~512MB per parallel worker
+
+### **Examples**
+```bash
+# Conservative parallel execution (good for laptops)
+docker-compose run --rm appium-tests --all --parallel=2
+
+# Moderate parallel execution (good for CI/CD)
+docker-compose run --rm appium-tests --all --parallel=4
+
+# High parallel execution (powerful servers)
+docker-compose run --rm appium-tests --all --parallel=8
 ```
 
 ## **Project structure**
