@@ -46,16 +46,7 @@ docker-compose run --rm appium-tests --java --tests=quickStart
 ```
 **Expected**: Same as above but using Docker Compose orchestration
 
-### 5. Parallel Execution Test
-```bash
-docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all --parallel=2
-```
-**Expected**: 
-- Both Java and Python tests run in parallel
-- HTML reports generated in `./reports/`
-- Execution logs created in `./logs/`
-
-### 6. Report Generation Verification
+### 5. Report Generation Verification
 ```bash
 # After running tests, check reports
 ls -la reports/
@@ -65,6 +56,15 @@ ls -la logs/
 - `reports/java/` with HTML test reports
 - `reports/test_summary.html` and `test_summary.json`
 - `logs/java_tests_*.log` with execution logs
+
+### 6. Parallel Execution Test
+```bash
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all --parallel=2
+```
+**Expected**: 
+- Both Java and Python tests run in parallel
+- HTML reports generated in `./reports/`
+- Execution logs created in `./logs/`
 
 ## Troubleshooting Quick Checks
 
