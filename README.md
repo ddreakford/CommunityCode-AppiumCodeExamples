@@ -31,7 +31,7 @@ CommunityCode-AppiumCodeExamples/
 │   ├── build.gradle        # Java build configuration
 │   ├── testng.xml         # TestNG suite configuration
 │   └── src/test/          # Java test sources
-│       ├── java/          # Test classes with environment config
+│       ├── java/          # Test classes
 │       └── resources/     # Test resources (images, etc.)
 ├── python/                 # Python/pytest tests
 │   ├── pyproject.toml     # Python project & dependencies
