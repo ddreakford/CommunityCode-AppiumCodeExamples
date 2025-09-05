@@ -44,35 +44,10 @@ public class EnvironmentConfig {
     }
     
     private static String getDeviceQuery(String platform) {
-        // Check for custom complete query first
         String customQuery = getEnvVar(platform.toUpperCase() + "_DEVICE_QUERY", "");
-        if (!customQuery.isEmpty()) {
-            System.out.println("Custom query: " + customQuery);
-            validateDeviceQuery(customQuery, platform);
-            return customQuery;
-        }
-        
-        // Build query from components
-        List<String> queryParts = new ArrayList<>();
-        
-        // Base OS requirement (always included)
-        queryParts.add("@os='" + platform + "'");
-        
-        // Optional model specification
-        String model = getEnvVar(platform.toUpperCase() + "_DEVICE_MODEL", "");
-        if (!model.isEmpty()) {
-            queryParts.add("@model='" + model + "'");
-        }
-        
-        // Optional OS version specification
-        String osVersion = getEnvVar(platform.toUpperCase() + "_OS_VERSION", "");
-        if (!osVersion.isEmpty()) {
-            queryParts.add("@osVersion='" + osVersion + "'");
-        }
-        
-        String query = String.join(" and ", queryParts);
-        validateDeviceQuery(query, platform);
-        return query;
+        System.out.println("Custom query: " + customQuery);
+        validateDeviceQuery(customQuery, platform);
+        return customQuery;
     }
     
     private static void validateDeviceQuery(String query, String platform) {

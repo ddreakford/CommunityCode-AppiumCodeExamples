@@ -37,13 +37,8 @@ All Java test files containing hardcoded placeholders `<CLOUD_URL>`, `<ACCESS_KE
 ### Device Query Migration
 - **Enhanced EnvironmentConfig** with device query methods:
   - `getAndroidDeviceQuery()` and `getIOSDeviceQuery()`
-  - Component-based query building from environment variables
   - Comprehensive validation with test abortion on malformed queries
 - **Updated 42 test files** to use EnvironmentConfig device queries instead of hardcoded values
-- **Flexible configuration options**:
-  - Component-based: `ANDROID_DEVICE_MODEL`, `ANDROID_OS_VERSION`, etc.
-  - Complete custom queries: `ANDROID_DEVICE_QUERY`, `IOS_DEVICE_QUERY`
-  - Graceful defaults: `@os='android'`, `@os='ios'`
 
 ## Python Configuration Changes
 
@@ -62,11 +57,8 @@ All Java test files containing hardcoded placeholders `<CLOUD_URL>`, `<ACCESS_KE
 
 ### Cloud Integration Features
 - **Automatic URL formatting**: Ensures URLs end with `/wd/hub`
-- **Conditional capabilities**: Only adds cloud-specific capabilities when credentials present
-- **Graceful fallback**: Works locally without cloud configuration
 
 ## Environment File
-
 ### Created Files
 - **`.env.example`**: Template with documentation
   ```bash
@@ -76,22 +68,14 @@ All Java test files containing hardcoded placeholders `<CLOUD_URL>`, `<ACCESS_KE
   APPIUM_VERSION=2.0.0
   
   # Device Query Configuration
-  # ANDROID_DEVICE_MODEL=Galaxy.*    # Optional: Target specific models
-  # ANDROID_OS_VERSION=1[1-3].*      # Optional: Target OS versions
-  # IOS_DEVICE_MODEL=iPhone.*        # Optional: Target specific models
-  # IOS_OS_VERSION=1[5-7].*          # Optional: Target OS versions
-  
-  # Device Configuration (Optional - for local testing)
-  ANDROID_DEVICE_NAME=Android Emulator
-  ANDROID_PLATFORM_VERSION=11
-  IOS_DEVICE_NAME=iPhone Simulator
-  IOS_PLATFORM_VERSION=15.0
+  ANDROID_DEVICE_QUERY=@os='android' and contains(@name, 'Galaxy S2')
+  IOS_DEVICE_QUERY=@os='ios' and contains(@name, 'Pro US')
   ```
 
 ### Usage Instructions
 1. Copy `.env.example` to `.env`
 2. Fill in actual values for your environment
-3. File is automatically ignored by git (in `.gitignore`)
+3. `.env` file is ignored by git (in `.gitignore`)
 
 ## Key Features
 
@@ -147,20 +131,9 @@ cp .env.example .env
 
 ### Device Query Examples
 
-#### Basic Device Targeting
-```bash
-# Target specific Android devices
-export ANDROID_DEVICE_MODEL="Galaxy.*"
-export ANDROID_OS_VERSION="1[1-3].*"  # Android 11-13
-
-# Target specific iOS devices  
-export IOS_DEVICE_MODEL="iPhone.*"
-export IOS_OS_VERSION="1[5-7].*"      # iOS 15-17
-```
-
 #### Custom Device Queries
 ```bash
-# Complete custom queries (overrides component approach)
+# Custom queries
 export ANDROID_DEVICE_QUERY="@os='android' and @model='Pixel.*' and @osVersion='13.*'"
 export IOS_DEVICE_QUERY="@os='ios' and @model='iPhone 14.*'"
 ```
@@ -168,8 +141,6 @@ export IOS_DEVICE_QUERY="@os='ios' and @model='iPhone 14.*'"
 #### Using .env File for Device Queries
 ```bash
 # In .env file
-ANDROID_DEVICE_MODEL=Galaxy.*
-ANDROID_OS_VERSION=12.*
-IOS_DEVICE_MODEL=iPhone.*
-IOS_OS_VERSION=16.*
+ANDROID_DEVICE_QUERY=@os='android' and contains(@name, 'Galaxy S2')
+IOS_DEVICE_QUERY=@os='ios' and contains(@name, 'Pro US')
 ```

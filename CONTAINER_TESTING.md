@@ -33,11 +33,9 @@ The containerized test environment provides:
    ACCESS_KEY=your_access_key_here
    APPIUM_VERSION=2.0.0
    
-   # Optional device targeting
-   ANDROID_DEVICE_MODEL=Galaxy.*
-   ANDROID_OS_VERSION=1[1-3].*
-   IOS_DEVICE_MODEL=iPhone.*
-   IOS_OS_VERSION=1[5-7].*
+   # Device queries
+   ANDROID_DEVICE_QUERY=@os='android' and contains(@name, 'Galaxy S2')
+   IOS_DEVICE_QUERY=@os='ios' and contains(@name, 'Pro US')
    ```
 
 ### Running Tests
@@ -137,32 +135,10 @@ You can also use custom patterns that match test class names or methods.
 | `APPIUM_VERSION` | Appium version to use | `2.0.0` |
 
 ### Device Query Configuration
-
-#### Component-Based Approach (Recommended)
 ```bash
-# Target specific Android devices
-ANDROID_DEVICE_MODEL=Galaxy.*
-ANDROID_OS_VERSION=1[1-3].*    # Android 11-13
-
-# Target specific iOS devices  
-IOS_DEVICE_MODEL=iPhone.*
-IOS_OS_VERSION=1[5-7].*        # iOS 15-17
-```
-
-#### Custom Query Approach
-```bash
-# Complete custom queries (overrides component approach)
+# Specify complete queries
 ANDROID_DEVICE_QUERY=@os='android' and @model='Pixel.*' and @osVersion='13.*'
 IOS_DEVICE_QUERY=@os='ios' and @model='iPhone 14.*'
-```
-
-### Local Development Configuration (Optional)
-```bash
-# For local Appium server testing
-ANDROID_DEVICE_NAME=Android Emulator
-ANDROID_PLATFORM_VERSION=11
-IOS_DEVICE_NAME=iPhone Simulator
-IOS_PLATFORM_VERSION=15.0
 ```
 
 ## Reports and Logs

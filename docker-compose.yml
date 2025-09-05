@@ -14,10 +14,6 @@ services:
       # Optional device query configuration
       - ANDROID_DEVICE_QUERY=${ANDROID_DEVICE_QUERY:-}
       - IOS_DEVICE_QUERY=${IOS_DEVICE_QUERY:-}
-      - ANDROID_DEVICE_MODEL=${ANDROID_DEVICE_MODEL:-}
-      - ANDROID_OS_VERSION=${ANDROID_OS_VERSION:-}
-      - IOS_DEVICE_MODEL=${IOS_DEVICE_MODEL:-}
-      - IOS_OS_VERSION=${IOS_OS_VERSION:-}
       
       # Optional local development configuration
       - ANDROID_DEVICE_NAME=${ANDROID_DEVICE_NAME:-Android Emulator}
@@ -66,14 +62,6 @@ services:
       - APPIUM_VERSION=${APPIUM_VERSION:-2.0.0}
       - ANDROID_DEVICE_QUERY=${ANDROID_DEVICE_QUERY:-}
       - IOS_DEVICE_QUERY=${IOS_DEVICE_QUERY:-}
-      - ANDROID_DEVICE_MODEL=${ANDROID_DEVICE_MODEL:-}
-      - ANDROID_OS_VERSION=${ANDROID_OS_VERSION:-}
-      - IOS_DEVICE_MODEL=${IOS_DEVICE_MODEL:-}
-      - IOS_OS_VERSION=${IOS_OS_VERSION:-}
-      - ANDROID_DEVICE_NAME=${ANDROID_DEVICE_NAME:-Android Emulator}
-      - ANDROID_PLATFORM_VERSION=${ANDROID_PLATFORM_VERSION:-11}
-      - IOS_DEVICE_NAME=${IOS_DEVICE_NAME:-iPhone Simulator}
-      - IOS_PLATFORM_VERSION=${IOS_PLATFORM_VERSION:-15.0}
     
     volumes:
       # Mount entire project for development
