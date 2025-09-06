@@ -11,7 +11,7 @@ services:
       - ACCESS_KEY=${ACCESS_KEY:-}
       - APPIUM_VERSION=${APPIUM_VERSION:-2.0.0}
       
-      # Optional device query configuration
+      # Device query configuration
       - ANDROID_DEVICE_QUERY=${ANDROID_DEVICE_QUERY:-}
       - IOS_DEVICE_QUERY=${IOS_DEVICE_QUERY:-}
       
