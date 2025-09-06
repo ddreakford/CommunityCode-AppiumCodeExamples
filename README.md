@@ -63,27 +63,32 @@ Use this option to run tests without separately installing all of the required d
 ### Docker Compose (Recommended)
 ```bash
 # Run specific test suites
+docker-compose build # (Re)Build the test code images
 docker-compose run --rm appium-tests --java --tests=quickStart
 docker-compose run --rm appium-tests --python --platform=android
 docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel workers
 ```
 
 ### Direct Docker Commands
+📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
+See [CONTAINER_TESTING.md](CONTAINER_TESTING.md) for optional mounting
+of `reports` and `logs` directories.
+
 ```bash
-# Build the Docker image
+# Build the image
 docker build -t appium-code-examples .
 
 # Get help and see all available options
 docker run --rm appium-code-examples --help
 
 # Run all tests with environment file
-docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --all --parallel=4  # 4 parallel workers
+docker run --rm --env-file .env --all --parallel=4  # 4 parallel workers
 
 # Run specific test types
-docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --tests=quickStart
-docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --python --platform=android
+docker run --rm --env-file .env --java --tests=quickStart
+docker run --rm --env-file .env --python --platform=android
 
-# Examples of available options:
+# Available options:
 # --all                    Run all tests (Java and Python)
 # --java                   Run Java/TestNG tests only  
 # --python                 Run Python/pytest tests only

@@ -40,10 +40,13 @@ The containerized test environment provides:
 
 ### Running Tests
 
-#### Option 1: Docker Compose (Recommended)
+#### Option 1: Docker Compose
 ```bash
+# (Re)Build the test code images
+docker-compose build
+
 # Run all tests with default settings
-docker-compose up --build
+docker-compose up
 
 # Run with custom parameters
 docker-compose run --rm appium-tests --java --parallel=6
@@ -56,15 +59,18 @@ docker-compose run --rm appium-tests --all --platform=android
 ```
 
 #### Option 2: Direct Docker
+📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
+Examples for optional mounting of `reports` and `logs` directories are included here.
+
 ```bash
 # Build the image
 docker build -t appium-code-examples .
 
-# Run all tests
-docker run --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --all
+# Run all tests; mount reports and logs dirs
+docker run --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all
 
 # Run with specific parameters
-docker run --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --parallel=4
+docker run --env-file .env appium-code-examples --java --parallel=4
 ```
 
 ## Test Runner Commands
