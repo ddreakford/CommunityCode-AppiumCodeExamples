@@ -60,7 +60,7 @@ Use this option to run tests without separately installing all of the required d
  **Recommended:** Create a `.env` file as documented in [CONTAINER_TESTING.md](CONTAINER_TESTING.md)
 
 
-### Docker Compose (Recommended)
+### Docker Compose
 ```bash
 # Run specific test suites
 docker-compose build # (Re)Build the test code images
@@ -69,7 +69,7 @@ docker-compose run --rm appium-tests --python --platform=android
 docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel workers
 ```
 
-### Direct Docker Commands
+### Direct Docker
 📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
 See [CONTAINER_TESTING.md](CONTAINER_TESTING.md) for optional mounting
 of `reports` and `logs` directories.
