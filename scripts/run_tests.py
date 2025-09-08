@@ -91,7 +91,7 @@ class TestRunner:
         
         # Add parallel execution properties
         cmd.extend([
-            f"-Dtestng.parallel=methods",
+            f"-Dtestng.parallel=tests",
             f"-Dtestng.thread-count={thread_count}"
         ])
         
