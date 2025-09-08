@@ -101,13 +101,13 @@ docker run --rm --env-file .env --python --platform=android
 
 The test runner uses two levels of parallelism:
 
-### **Suite Level**
-- Java and Python test suites run simultaneously in separate processes
+### **Process Level**
+- Java and Python suites can run simultaneously in separate processes
 - Controlled by `--parallel=N` parameter (default: 4 workers)
+  - Gradle `maxParallelForks` is set to this value
 
 ### **Framework Level** 
-- Java tests use TestNG's `parallel="tests"` for concurrent test method execution
-- [For simplicity] Thread count matches the `--parallel` value
+- Java tests use TestNG `parallel="methods"` for concurrent test method execution
 
 ### **Parallel Execution Guidelines**
 - **Local development**: `--parallel=2` to `--parallel=4`

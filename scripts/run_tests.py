@@ -65,11 +65,11 @@ class TestRunner:
         print("✅ Environment validation complete")
         return True
 
-    def run_java_tests(self, test_filter: Optional[str] = None, thread_count: int = 4) -> Tuple[bool, str]:
+    def run_java_tests(self, test_filter: Optional[str] = None, fork_count: int = 4) -> Tuple[bool, str]:
         """Run Java/TestNG tests using Gradle"""
         print("☕ Starting Java/TestNG tests...")
         
-        cmd = ["./gradlew", "test", "--no-daemon"]
+        cmd = ["./gradlew", "test", f"-PmaxForks={fork_count}", "--no-daemon"]
         
         # Add test filtering if specified
         if test_filter:
@@ -89,10 +89,15 @@ class TestRunner:
         # Configure HTML reports
         cmd.extend(["-Dtest.html.report=true"])
         
-        # Add parallel execution properties
+        # Parallel execution properties
+        #
+        # Gradle/JVM level:
+        #     maxParallelForks (set via project property, read via build.gradle)
+        # TestNG level:
+        #     testng.parallel=methods
+        #     test.ng.thread-count (not used here)
         cmd.extend([
-            f"-Dtestng.parallel=tests",
-            f"-Dtestng.thread-count={thread_count}"
+            f"-Dtestng.parallel=methods"
         ])
         
         log_file = self.logs_dir / f"java_tests_{int(time.time())}.log"
