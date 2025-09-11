@@ -17,7 +17,13 @@ dependencies {
 }
 
 test {
-    useTestNG()
+    useTestNG {
+        if (project.hasProperty('suites')) {
+            suites project.property('suites').split(',')
+        } else {
+            suites 'testng.xml'
+        }
+    }
     maxParallelForks = project.hasProperty('maxForks') ? 
         project.property('maxForks').toInteger() : 4
 }

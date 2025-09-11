@@ -69,9 +69,27 @@ class TestRunner:
         """Run Java/TestNG tests using Gradle"""
         print("☕ Starting Java/TestNG tests...")
         
-        cmd = ["./gradlew", "test", f"-PmaxForks={fork_count}", "--no-daemon"]
+        cmd = ["./gradlew", "test", "--no-daemon"]
+
+        # Parallel execution
+        #
+        # Gradle/JVM level:
+        #     maxParallelForks (read via build.gradle)
+        # TestNG level:
+        #     testng.parallel=methods
+        #     test.ng.thread-count (not used here)
+        cmd.extend([
+            f"-PmaxForks={fork_count}",
+            f"-Dtestng.parallel=methods"
+        ])
         
-        # Add test filtering if specified
+        # HTML reports
+        cmd.extend(["-Dtest.html.report=true"])
+
+        # TestNG suites
+        cmd.extend(["-Psuites=testng.xml"])  # Default suite file
+        
+        # Test filtering
         if test_filter:
             if test_filter == "quickstart":
                 cmd.extend(["--tests", "*QuickStart*"])
@@ -85,21 +103,7 @@ class TestRunner:
                 cmd.extend(["--tests", "*IOS*"])
             else:
                 cmd.extend(["--tests", f"*{test_filter}*"])
-        
-        # Configure HTML reports
-        cmd.extend(["-Dtest.html.report=true"])
-        
-        # Parallel execution properties
-        #
-        # Gradle/JVM level:
-        #     maxParallelForks (set via project property, read via build.gradle)
-        # TestNG level:
-        #     testng.parallel=methods
-        #     test.ng.thread-count (not used here)
-        cmd.extend([
-            f"-Dtestng.parallel=methods"
-        ])
-        
+                
         log_file = self.logs_dir / f"java_tests_{int(time.time())}.log"
         
         try:
