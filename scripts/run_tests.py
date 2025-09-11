@@ -73,12 +73,12 @@ class TestRunner:
         
         # Add test filtering if specified
         if test_filter:
-            if test_filter == "quickStart":
+            if test_filter == "quickstart":
                 cmd.extend(["--tests", "*QuickStart*"])
             elif test_filter == "advanced":
-                cmd.extend(["--tests", "*advancedCommands*"])
+                cmd.extend(["--tests", "*AdvancedCommands*"])
             elif test_filter == "optional":
-                cmd.extend(["--tests", "*optionalCapabilities*"])
+                cmd.extend(["--tests", "*OptionalCapabilities*"])
             elif test_filter == "android":
                 cmd.extend(["--tests", "*Android*"])
             elif test_filter == "ios":
@@ -154,7 +154,7 @@ class TestRunner:
         
         # Add test filtering if specified
         if test_filter:
-            if test_filter == "quickStart":
+            if test_filter == "quickstart":
                 cmd.extend(["-k", "quick_start"])
             elif test_filter == "android":
                 cmd.extend(["-m", "android"])
@@ -377,7 +377,7 @@ Container Usage Examples:
   docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --all --parallel=4
     # Run all tests with 4 parallel workers
 
-  docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --tests=quickStart
+  docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --tests=quickstart
     # Run Java quick start tests only
 
   docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --python --platform=android
@@ -397,7 +397,7 @@ Local Script Usage (if running outside container):
     parser.add_argument("--python", action="store_true", help="Run Python/pytest tests")
     
     # Test filtering
-    parser.add_argument("--tests", help="Test filter (quickStart, advanced, optional)")
+    parser.add_argument("--tests", help="Test filter (quickstart, advanced, optional)")
     parser.add_argument("--platform", help="Platform filter (android, ios)")
     
     # Execution options

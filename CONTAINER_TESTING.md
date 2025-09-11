@@ -52,7 +52,7 @@ docker-compose up
 docker-compose run --rm appium-tests --java --parallel=6
 
 # Run specific test suites
-docker-compose run --rm appium-tests --python --tests=quickStart
+docker-compose run --rm appium-tests --python --tests=quickstart
 
 # Run platform-specific tests
 docker-compose run --rm appium-tests --all --platform=android
@@ -87,9 +87,9 @@ python run_tests.py [OPTIONS]
 | Option | Description | Example |
 |--------|-------------|---------|
 | `--all` | Run all tests (Java and Python) | `--all --parallel=4` |
-| `--java` | Run Java/TestNG tests only | `--java --tests=quickStart` |
+| `--java` | Run Java/TestNG tests only | `--java --tests=quickstart` |
 | `--python` | Run Python/pytest tests only | `--python --platform=android` |
-| `--tests=FILTER` | Filter tests by name | `--tests=quickStart` |
+| `--tests=FILTER` | Filter tests by name | `--tests=quickstart` |
 | `--platform=FILTER` | Filter by platform | `--platform=android` |
 | `--parallel=N` | Number of parallel workers (default: 4) | `--parallel=6` |
 | `--generate-reports-only` | Generate reports from existing logs | `--generate-reports-only` |
@@ -108,7 +108,7 @@ python run_tests.py --all --parallel=4
 python run_tests.py --all --parallel=8
 
 # Run only Java quick start tests with parallelism
-python run_tests.py --java --tests=quickStart --parallel=4
+python run_tests.py --java --tests=quickstart --parallel=4
 
 # Run Python Android tests with high parallelism
 python run_tests.py --python --platform=android --parallel=6
@@ -119,7 +119,7 @@ python run_tests.py --python --platform=android --parallel=6
 ### Available Test Filters
 
 #### Test Type Filters (`--tests`)
-- `quickStart`: Basic Appium functionality tests
+- `quickstart`: Basic Appium functionality tests
 - `advanced`: Complex Appium operations
 - `optional`: Platform-specific optional capabilities
 
@@ -173,7 +173,7 @@ For development and debugging, use the development profile:
 docker-compose --profile dev run --rm appium-tests-dev
 
 # Inside the container, run tests manually
-python3.11 scripts/run_tests.py --java --tests=quickStart
+python3.11 scripts/run_tests.py --java --tests=quickstart
 ```
 
 Development mode provides:

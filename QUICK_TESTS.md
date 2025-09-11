@@ -33,7 +33,7 @@ docker run --rm appium-code-examples --help
 
 ### 3. Environment Validation Test
 ```bash
-docker run --rm --env-file .env  -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --java --tests=quickStart
+docker run --rm --env-file .env  -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --java --tests=quickstart
 ```
 **Expected**: 
 - Environment validation passes ✅
@@ -42,7 +42,7 @@ docker run --rm --env-file .env  -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/
 
 ### 4. Docker Compose Test
 ```bash
-docker-compose run --rm appium-tests --java --tests=quickStart
+docker-compose run --rm appium-tests --java --tests=quickstart
 ```
 **Expected**: Same as above but using Docker Compose orchestration
 

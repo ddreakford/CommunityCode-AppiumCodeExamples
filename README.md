@@ -64,7 +64,7 @@ Use this option to run tests without separately installing all of the required d
 ```bash
 # Run specific test suites
 docker-compose build # (Re)Build the test code images
-docker-compose run --rm appium-tests --java --tests=quickStart
+docker-compose run --rm appium-tests --java --tests=quickstart
 docker-compose run --rm appium-tests --python --platform=android
 docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel workers
 ```
@@ -85,14 +85,14 @@ docker run --rm appium-code-examples --help
 docker run --rm --env-file .env --all --parallel=4  # 4 parallel workers
 
 # Run specific test types
-docker run --rm --env-file .env --java --tests=quickStart
+docker run --rm --env-file .env --java --tests=quickstart
 docker run --rm --env-file .env --python --platform=android
 
 # Available options:
 # --all                    Run all tests (Java and Python)
 # --java                   Run Java/TestNG tests only  
 # --python                 Run Python/pytest tests only
-# --tests=FILTER          Filter tests (quickStart, advanced, optional)
+# --tests=FILTER          Filter tests (quickstart, advanced, optional)
 # --platform=FILTER       Filter by platform (android, ios)
 # --parallel=N            Number of parallel workers (default: 4)
 ```
