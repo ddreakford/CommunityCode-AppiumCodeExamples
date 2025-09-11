@@ -1,4 +1,4 @@
-package advancedCommands.performanceTransactionForApplication;
+package advancedCommands.performanceTransaction;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
@@ -16,7 +16,7 @@ import utils.EnvironmentConfig;
  * Network traffic is measured for the device, and not per application.
  * You must use EndPerformanceTransaction after using this command.
  */
-public class PerformanceTransactionForApplicationAndroidTest {
+public class PerformanceTransactionAndroidTest {
     
     private AndroidDriver driver = null;
 

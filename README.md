@@ -156,7 +156,7 @@ These are special commands using the executeScript command.
   - installApp: Install the application with given name/unique name/build version/release version/both build and release version.
   - startLoggingDevice: Start the device log. The log is written to the path provided by the user.
   - stopLoggingDevice: Stop the device log. 
-  - performanceTransactionForApplication: Start performance transaction collects data on duration, cpu, battery, memory of the specified application on the device.
+  - performanceTransaction: Start performance transaction collects data on duration, cpu, battery, memory of the specified application on the device.
   - report: Add a step to the generated report.
   - sendKeysWithBT: Send keyboard events to the Bluetooth keyboard on the device.
   - setAuthenticationReply: Simulate different authentication responses on applications that request a user fingerprint authentication.
