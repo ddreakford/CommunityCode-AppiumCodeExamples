@@ -65,7 +65,7 @@ class TestRunner:
         print("✅ Environment validation complete")
         return True
 
-    def run_java_tests(self, test_filter: Optional[str] = None, fork_count: int = 4) -> Tuple[bool, str]:
+    def run_java_tests(self, test_suites: Optional[str] = "testng.xml", test_filter: Optional[str] = None, fork_count: int = 4) -> Tuple[bool, str]:
         """Run Java/TestNG tests using Gradle"""
         print("☕ Starting Java/TestNG tests...")
         
@@ -87,9 +87,14 @@ class TestRunner:
         cmd.extend(["-Dtest.html.report=true"])
 
         # TestNG suites
-        cmd.extend(["-Psuites=testng.xml"])  # Default suite file
+        cmd.extend([f"-Psuites={test_suites}"])
         
         # Test filtering
+        #
+        # Well-known suites (for example, QuickStart) have built-in params.
+        #
+        # For others, test names (as specified in a suite XML file) can be
+        # directly passed via the `--tests` parameter.
         if test_filter:
             if test_filter == "quickstart":
                 cmd.extend(["--tests", "*QuickStart*"])
@@ -215,9 +220,9 @@ class TestRunner:
             future_to_spec = {}
             for spec in test_specs:
                 if spec["type"] == "java":
-                    future = executor.submit(self.run_java_tests, spec.get("filter"), max_workers)
+                    future = executor.submit(self.run_java_tests, spec.get("suites"), spec.get("filter"), max_workers)
                 else:  # python
-                    future = executor.submit(self.run_python_tests, spec.get("filter"))
+                    future = executor.submit(self.run_python_tests, spec.get("filter"), max_workers)
                 future_to_spec[future] = spec
             
             # Process completed tasks
@@ -395,13 +400,16 @@ Local Script Usage (if running outside container):
         """
     )
     
-    # Test selection
+    # Test framework selection
     parser.add_argument("--all", action="store_true", help="Run all tests (Java and Python)")
     parser.add_argument("--java", action="store_true", help="Run Java/TestNG tests")
     parser.add_argument("--python", action="store_true", help="Run Python/pytest tests")
+
+    # Test suite specification
+    parser.add_argument("--suites", help="Suite XML files (default: testng.xml)")
     
     # Test filtering
-    parser.add_argument("--tests", help="Test filter (quickstart, advanced, optional)")
+    parser.add_argument("--tests", help="Test filter (quickstart, advanced, optional or 'test_name's as specified in a suite XML file)")
     parser.add_argument("--platform", help="Platform filter (android, ios)")
     
     # Execution options
@@ -433,25 +441,26 @@ def main():
     
     if args.all:
         test_specs.extend([
-            {"type": "java", "filter": args.tests or args.platform},
+            {"type": "java", "suites": args.suites or "testng.xml", "filter": args.tests or args.platform},
             {"type": "python", "filter": args.tests or args.platform}
         ])
     else:
         if args.java:
-            test_specs.append({"type": "java", "filter": args.tests or args.platform})
+            test_specs.append({"type": "java", "suites": args.suites or "testng.xml", "filter": args.tests or args.platform})
         if args.python:
             test_specs.append({"type": "python", "filter": args.tests or args.platform})
     
     # Default to all tests if nothing specified
     if not test_specs:
         test_specs = [
-            {"type": "java", "filter": None},
+            {"type": "java", "suites": None, "filter": None},
             {"type": "python", "filter": None}
         ]
     
     print(f"🎯 Test execution plan: {len(test_specs)} test suite(s)")
     for i, spec in enumerate(test_specs, 1):
         print(f"  {i}. {spec['type'].title()} tests" + 
+              (f" (suites: {spec['suites']})" if spec['suites'] else "") +
               (f" (filter: {spec['filter']})" if spec['filter'] else ""))
     
     # Execute tests
