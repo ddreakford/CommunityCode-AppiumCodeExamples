@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="AppiumTestSuite">
     <test name="QuickStartTests">
-        <!--classes>
-            <class name="quickStartTests.AndroidQuickStartTest"/>
-            <class name="quickStartTests.IOSQuickStartTest"/>
-        </classes-->
         <packages>
             <package name="quickStartTests.*"/>
         </packages>

@@ -48,13 +48,14 @@ docker-compose build
 # Run all tests with default settings
 docker-compose up
 
-# Run with custom parameters
-docker-compose run --rm appium-tests --java --parallel=6
+# Run predefined test groups
+docker-compose run --rm appium-tests --java --tests=quickstart
 
 # Run specific test suites
-docker-compose run --rm appium-tests --python --tests=quickstart
+docker-compose run --rm appium-tests --java --suites testng.xml,testng_quickstart.xml
 
-# Run platform-specific tests
+# TODO: Run platform-specific tests
+# *Not yet implemented*
 docker-compose run --rm appium-tests --all --platform=android
 ```
 
@@ -65,6 +66,10 @@ Examples for optional mounting of `reports` and `logs` directories are included 
 ```bash
 # Build the image
 docker build -t appium-code-examples .
+
+# Run specific test suites; optionally specify tests within the suites
+docker run --rm --env-file .env appium-code-examples-test --java --suites testng_quickstart.xml
+docker run --rm --env-file .env appium-code-examples-test --java --suites testng_quickstart.xml --tests=AndroidQuickStartTest
 
 # Run all tests; mount reports and logs dirs
 docker run --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all
@@ -88,8 +93,9 @@ python run_tests.py [OPTIONS]
 |--------|-------------|---------|
 | `--all` | Run all tests (Java and Python) | `--all --parallel=4` |
 | `--java` | Run Java/TestNG tests only | `--java --tests=quickstart` |
-| `--python` | Run Python/pytest tests only | `--python --platform=android` |
+| `--suites=FILTER` | Specify suite definition files | `--java --suites=testng.xml,testng_quickstart.xml` |
 | `--tests=FILTER` | Filter tests by name | `--tests=quickstart` |
+| `--python` | Run Python/pytest tests only | `--python --platform=android` |
 | `--platform=FILTER` | Filter by platform | `--platform=android` |
 | `--parallel=N` | Number of parallel workers (default: 4) | `--parallel=6` |
 | `--generate-reports-only` | Generate reports from existing logs | `--generate-reports-only` |
@@ -123,12 +129,13 @@ python run_tests.py --python --platform=android --parallel=6
 - `advanced`: Complex Appium operations
 - `optional`: Platform-specific optional capabilities
 
+#### Custom Filters (`--tests`)
+You can also use custom patterns that match test class names or methods.
+- `[TEST_NAME_FILTER]`: Matches test within a suite definition file
+
 #### Platform Filters (`--platform`)
 - `android`: Android-specific tests only
 - `ios`: iOS-specific tests only
-
-#### Custom Filters
-You can also use custom patterns that match test class names or methods.
 
 ## Environment Configuration
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="QuickStartTestSuite">
+    <test name="QuickStartTests">
+        <packages>
+            <package name="quickStartTests.*"/>
+        </packages>
+    </test>    
+    <test name="AndroidQuickStartTest">
+        <classes>
+            <class name="quickStartTests.AndroidQuickStartTest"/>
+        </classes>
+    </test>    
+    <test name="IOSQuickStartTest">
+        <classes>
+            <class name="quickStartTests.IOSQuickStartTest"/>
+        </classes>
+    </test>    
+</suite>
