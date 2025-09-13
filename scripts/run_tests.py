@@ -457,7 +457,7 @@ def main():
             {"type": "python", "filter": None}
         ]
     
-    print(f"🎯 Test execution plan: {len(test_specs)} test suite(s)")
+    print(f"🎯 Test execution plan:")
     for i, spec in enumerate(test_specs, 1):
         print(f"  {i}. {spec['type'].title()} tests" + 
               (f" (suites: {spec['suites']})" if spec['suites'] else "") +
