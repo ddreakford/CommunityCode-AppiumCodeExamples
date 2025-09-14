@@ -1,4 +1,5 @@
-Containerized Test Environment
+# Containerized Test Environment Prompt
+This is the initial prompt used to jumpstart creation of this version of the Appium OSS Code Examples project.
 
 Please create a similar utility that can be used for this project. 
 Please review the following requirements, recommend improvements, create a plan and then check with me before creating the new utility and other assets that we will need.

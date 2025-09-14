@@ -20,44 +20,43 @@ A local Appium server is optional, as tests can be seamlesly run against devices
 
 ## **Application Under Test**
 * The tests in this repo are generally run on two applications: Eribank and UIcatalog. The tests assume the applicatin under test is available for installation on the target device. If you are using Digital.ai Testing Cloud and the application has been made available to your project, application installion on the target device can be triggered via Capabilities that are specified for the test.
-* **Note/Reminder**: Application version changes can lead differences in xpath locators. This is a common cause of test failures following application updates.
-
 
 ## **Project Structure**
 
 ```
 CommunityCode-AppiumCodeExamples/
-├── java/                    # Java/TestNG tests
-│   ├── build.gradle        # Java build configuration
-│   ├── testng.xml         # TestNG suite configuration
-│   └── src/test/          # Java test sources
-│       ├── java/          # Test classes
-│       └── resources/     # Test resources (images, etc.)
-├── python/                 # Python/pytest tests
-│   ├── pyproject.toml     # Python project & dependencies
-│   ├── conftest.py        # Pytest configuration & fixtures
-│   └── tests/             # Python test sources
-├── scripts/                # Test execution scripts
-│   └── run_tests.py       # Python test runner with parallel execution
-├── reports/                # Generated test reports (HTML/JSON)
-├── logs/                   # Test execution logs
-├── shared/                 # Shared test resources
-├── Dockerfile              # Multi-stage container definition
-├── docker-compose.yml      # Container orchestration
-├── .dockerignore          # Docker build context optimization
-├── .env.example           # Environment configuration template
-├── CONTAINER_TESTING.md   # Complete container testing guide
-├── Env_Var_Migration.md   # Environment variable documentation
-└── build.gradle           # Root build configuration
+├── architecture/              # Architectural notes and env validation tests
+│   ├── ...                
+├── java/                      # Java/TestNG tests
+│   ├── build.gradle           # Java build configuration
+│   ├── testng.xml             # TestNG suite configuration
+│   └── src/test/              # Java test sources
+│       ├── java/              # Test classes
+│       └── resources/         # Test resources (images, etc.)
+├── python/                    # Python/pytest tests [@TODO / NOT YET IMPLEMENTED]
+│   ├── pyproject.toml         # Python project & dependencies
+│   ├── conftest.py            # Pytest configuration & fixtures
+│   └── tests/                 # Python test sources
+├── scripts/                   # Test execution scripts
+│   └── run_tests.py           # Python test runner with parallel execution
+├── reports/                   # Framework generated reports (e.g. TestNG, pytest)
+├── logs/                      # Framework generated test logs
+├── shared/                    # Shared test resources
+├── Dockerfile                 # Test environment container definition
+├── docker-compose.yml         # Test environment container orchestration
+├── .dockerignore              # Docker build context optimization
+├── .env.example               # Test environment configuration template
+├── CONTAINER_TESTING_GUIDE.md # Detailed containerized testing environment guide
+└── build.gradle               # Build/test configuration (Gradle driving TestNG, pytest)
 ```
 
 ## **Quick start: Containerized option**
 Use this option to run tests without separately installing all of the required dependencies.
 
-📋 See [CONTAINER_TESTING.md](CONTAINER_TESTING.md) for full documentation of this option.
+📋 See [CONTAINER_TESTING_GUIDE.md](CONTAINER_TESTING_GUIDE.md) for full documentation of this option.
 
 ### Prereq: Environment variables
- **Recommended:** Create a `.env` file as documented in [CONTAINER_TESTING.md](CONTAINER_TESTING.md)
+ **Recommended:** Create a `.env` file as documented in [CONTAINER_TESTING_GUIDE.md](CONTAINER_TESTING_GUIDE.md)
 
 
 ### Docker Compose
@@ -71,7 +70,7 @@ docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel w
 
 ### Direct Docker
 📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
-See [CONTAINER_TESTING.md](CONTAINER_TESTING.md) for optional mounting
+See [CONTAINER_TESTING_GUIDE.md](CONTAINER_TESTING_GUIDE.md) for optional mounting
 of `reports` and `logs` directories.
 
 ```bash
@@ -108,6 +107,7 @@ The test runner uses two levels of parallelism:
 
 ### **Framework Level** 
 - Java tests use TestNG `parallel="methods"` for concurrent test method execution
+- Python [@TODO / NOT YET IMPLEMENTED]
 
 ### **Parallel Execution Guidelines**
 - **Local development**: `--parallel=2` to `--parallel=4`
