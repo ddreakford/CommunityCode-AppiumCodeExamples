@@ -127,7 +127,7 @@ docker-compose run --rm appium-tests --all --parallel=4
 docker-compose run --rm appium-tests --all --parallel=8
 ```
 
-## **Project structure**
+## **How the test code is organized**
 
 ### **Android and iOS Testing**
 Most commands and capabilities have two implementations: one for Android and the other for IOS.
