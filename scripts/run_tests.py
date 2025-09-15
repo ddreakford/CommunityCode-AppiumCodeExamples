@@ -323,7 +323,7 @@ class TestRunner:
         </head>
         <body>
             <div class="header">
-                <h1>🧪 Appium Test Execution Summary</h1>
+                <h1>🧪 Appium Samples In a Box Summary</h1>
                 <p>Execution Time: {summary['execution_time']}</p>
             </div>
             
