@@ -25,7 +25,7 @@ A local Appium server is optional, as tests can be seamlesly run against devices
 
 ```
 CommunityCode-AppiumCodeExamples/
-├── architecture/              # Architectural notes and env validation tests
+├── architecture/              # Architectural notes, guides and env validation tests
 │   ├── ...                
 ├── java/                      # Java/TestNG tests
 │   ├── build.gradle           # Java build configuration
@@ -46,17 +46,16 @@ CommunityCode-AppiumCodeExamples/
 ├── docker-compose.yml         # Test environment container orchestration
 ├── .dockerignore              # Docker build context optimization
 ├── .env.example               # Test environment configuration template
-├── CONTAINER_TESTING_GUIDE.md # Detailed containerized testing environment guide
 └── build.gradle               # Build/test configuration (Gradle driving TestNG, pytest)
 ```
 
 ## **Quick start: Containerized option**
 Use this option to run tests without separately installing all of the required dependencies.
 
-📋 See [CONTAINER_TESTING_GUIDE.md](CONTAINER_TESTING_GUIDE.md) for full documentation of this option.
+📋 See [CONTAINER_TESTING_GUIDE.md](/architecture/CONTAINER_TESTING_GUIDE.md) for full documentation of this option.
 
 ### Prereq: Environment variables
- **Recommended:** Create a `.env` file as documented in [CONTAINER_TESTING_GUIDE.md](CONTAINER_TESTING_GUIDE.md)
+ **Recommended:** Create a `.env` file as documented in [CONTAINER_TESTING_GUIDE.md](/architecture/CONTAINER_TESTING_GUIDE.md)
 
 
 ### Docker Compose
@@ -70,7 +69,7 @@ docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel w
 
 ### Direct Docker
 📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
-See [CONTAINER_TESTING_GUIDE.md](CONTAINER_TESTING_GUIDE.md) for optional mounting
+See [CONTAINER_TESTING_GUIDE.md](/architecture/CONTAINER_TESTING_GUIDE.md) for optional mounting
 of `reports` and `logs` directories.
 
 ```bash
