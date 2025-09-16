@@ -72,10 +72,11 @@ docker run --rm --env-file .env appium-code-examples-test --java --suites testng
 docker run --rm --env-file .env appium-code-examples-test --java --suites testng_quickstart.xml --tests=AndroidQuickStartTest
 
 # Run all tests; mount reports and logs dirs
-docker run --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --java --tests=quickstart
 
 # Run with specific parameters
-docker run --env-file .env appium-code-examples --java --parallel=4
+docker run --rm --env-file .env appium-code-examples --java --parallel=4
 ```
 
 ## Test Runner Commands
