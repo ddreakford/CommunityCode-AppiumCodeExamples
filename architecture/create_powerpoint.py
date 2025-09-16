@@ -23,7 +23,7 @@ def create_powerpoint_presentation():
     subtitle = slide1.placeholders[1]
     
     title.text = "Appium Samples In a Box"
-    subtitle.text = "Architecture & Sequence Flow Diagrams\n\nGenerated from scripts/run_tests.py\nDocker Container Integration\nDigital.ai Testing Cloud Platform"
+    subtitle.text = "Architecture & Sequence Flow Diagrams"
     
     # Format title
     title_font = title.text_frame.paragraphs[0].font
@@ -44,7 +44,7 @@ def create_powerpoint_presentation():
     title_box = slide2.shapes.add_textbox(Inches(0.5), Inches(0.2), Inches(9), Inches(0.8))
     title_frame = title_box.text_frame
     title_para = title_frame.paragraphs[0]
-    title_para.text = "System Architecture Overview"
+    title_para.text = "Architectural Overview"
     title_para.alignment = PP_ALIGN.CENTER
     title_font = title_para.font
     title_font.size = Pt(32)
@@ -60,7 +60,7 @@ def create_powerpoint_presentation():
     desc_box = slide2.shapes.add_textbox(Inches(0.5), Inches(7.2), Inches(9), Inches(0.8))
     desc_frame = desc_box.text_frame
     desc_para = desc_frame.paragraphs[0]
-    desc_para.text = "Key Components: Test Runner (Python) • Docker Container • Build Tools (Gradle/uv) • Digital.ai Testing Cloud"
+    desc_para.text = "Key Components: Runner (Python) • Docker Container • Build Tools (Gradle/uv) • Digital.ai Testing Cloud"
     desc_para.alignment = PP_ALIGN.CENTER
     desc_font = desc_para.font
     desc_font.size = Pt(14)
