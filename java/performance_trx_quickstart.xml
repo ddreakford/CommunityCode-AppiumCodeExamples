@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="PerformanceTrxTestSuite">
+    <test name="PerformanceTrxTests">
+        <packages>
+            <package name="advancedCommands.performanceTransaction.*"/>
+        </packages>
+    </test>    
+    <test name="AndroidPerformanceTrxTests">
+        <classes>
+            <class name="advancedCommands.performanceTransaction.PerformanceTransactionAndroidTest"/>
+        </classes>
+    </test>    
+    <test name="IOSPerformanceTrxTests">
+        <classes>
+            <class name="advancedCommands.performanceTransaction.PerformanceTransactionIOSTest"/>
+        </classes>
+    </test>    
+</suite>

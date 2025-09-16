@@ -30,7 +30,7 @@ public class PerformanceTransactionAndroidTest {
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
                 .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:instrumentApp", true)
-                .amend("digitalai:testName", "Performance transaction for application test on Android device");
+                .amend("digitalai:testName", "Performance Transaction test on Android device");
         driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }
 

@@ -29,7 +29,7 @@ public class PerformanceTransactionIOSTest {
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
                 .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
                 .amend("digitalai:instrumentApp", true)
-                .amend("digitalai:testName", "Performance transaction for application test on iOS device");
+                .amend("digitalai:testName", "Performance Transaction test on iOS device");
         driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }
 
@@ -38,7 +38,7 @@ public class PerformanceTransactionIOSTest {
     public void performPerformanceTransaction() {
         driver.executeScript("seetest:client.startPerformanceTransactionForApplication", "com.experitest.ExperiBank",
                 "Monitor");
-        driver.rotate(ScreenOrientation.PORTRAIT);
+        // driver.rotate(ScreenOrientation.PORTRAIT);
         driver.findElement(By.xpath("//*[@name='usernameTextField']")).sendKeys("company");
         driver.findElement(By.xpath("//*[@name='passwordTextField']")).sendKeys("company");
         driver.findElement(By.xpath("//*[@name='loginButton']")).click();
