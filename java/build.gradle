@@ -14,16 +14,23 @@ dependencies {
     testImplementation group: 'io.appium', name: 'java-client', version: '9.4.0'
     testImplementation group: 'org.openpnp', name: 'opencv', version: '4.9.0-0'
     testImplementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '3.0.0'
+
+    // Performance testing dependencies
+    testImplementation group: 'org.json', name: 'json', version: '20231013'
+    testImplementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
+    testImplementation group: 'com.konghq', name: 'unirest-java', version: '3.14.5'
 }
 
 test {
     useTestNG {
         if (project.hasProperty('suites')) {
-            suites project.property('suites').split(',')
+            suiteXmlFiles = project.property('suites').split(',').collect { suite ->
+                file(suite.startsWith('src/test/resources/') ? suite : "src/test/resources/${suite}")
+            }
         } else {
-            suites 'testng.xml'
+            suiteXmlFiles = files('src/test/resources/testng.xml')
         }
     }
-    maxParallelForks = project.hasProperty('maxForks') ? 
+    maxParallelForks = project.hasProperty('maxForks') ?
         project.property('maxForks').toInteger() : 4
 }

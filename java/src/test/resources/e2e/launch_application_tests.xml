@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Launch Application Performance Testing Suite">
+
+    <test name="Launch_Application_iOS_3G">
+        <parameter name="nvProfile" value="3G-average" />
+        <parameter name="captureLevel" value="Application" /> <!--Accepted Values: 'Device' or 'Application' -->
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationIOSTest"/>
+        </classes>
+    </test>
+
+    <test name="Launch_Application_iOS_4G">
+        <parameter name="nvProfile" value="4G-average" />
+        <parameter name="captureLevel" value="Application" />
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationIOSTest"/>
+        </classes>
+    </test>
+
+    <test name="Launch_Application_Android_3G">
+        <parameter name="nvProfile" value="3G-average" />
+        <parameter name="captureLevel" value="Application" />
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationAndroidTest"/>
+        </classes>
+    </test>
+
+    <test name="Launch_Application_Android_4G">
+        <parameter name="nvProfile" value="4G-average" />
+        <parameter name="captureLevel" value="Application" />
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationAndroidTest"/>
+        </classes>
+    </test>
+
+    <test name="Launch_Application_iOS_Device_Level">
+        <parameter name="nvProfile" value="4G-average" />
+        <parameter name="captureLevel" value="Device" /> <!--Captures device-level metrics -->
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationIOSTest"/>
+        </classes>
+    </test>
+
+    <test name="Launch_Application_Android_Device_Level">
+        <parameter name="nvProfile" value="4G-average" />
+        <parameter name="captureLevel" value="Device" />
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationAndroidTest"/>
+        </classes>
+    </test>
+
+    <test name="Launch_Application_iOS_Bad_Connection">
+        <parameter name="nvProfile" value="4G-bad-connection" />
+        <parameter name="captureLevel" value="Application" />
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationIOSTest"/>
+        </classes>
+    </test>
+
+    <test name="Launch_Application_Android_Bad_Connection">
+        <parameter name="nvProfile" value="4G-bad-connection" />
+        <parameter name="captureLevel" value="Application" />
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.LaunchApplicationAndroidTest"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,0 +1,183 @@
+package advancedCommands.performanceTransaction.e2e.helpers;
+
+import io.appium.java_client.AppiumDriver;
+import kong.unirest.HttpResponse;
+import kong.unirest.Unirest;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import utils.EnvironmentConfig;
+
+import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+public class PerformanceHelpers {
+
+    protected AppiumDriver driver;
+
+    public PerformanceHelpers(AppiumDriver driver) {
+        this.driver = driver;
+    }
+
+    public void startCapturePerformanceMetrics(String nvProfile, String captureLevel, String applicationName) {
+        try {
+            if (captureLevel.equalsIgnoreCase("Device")) {
+                driver.executeScript("seetest:client.startPerformanceTransaction", nvProfile);
+            } else if (captureLevel.equalsIgnoreCase("Application")) {
+                driver.executeScript("seetest:client.startPerformanceTransactionForApplication", applicationName, nvProfile);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Could not start Capturing. Accepted Values: [Device, Application]");
+        }
+    }
+
+    public String endCapturePerformanceMetrics(String transactionName) {
+        Object transaction = driver.executeScript("seetest:client.endPerformanceTransaction", transactionName);
+        return transaction.toString();
+    }
+
+    // Properties that can be fetched:
+    // transactionName / transactionId / appName / appVersion / link (Link to Performance Transaction Report)
+    public String getPropertyFromPerformanceTransactionReport(String response, String property) {
+        JSONObject jsonObject = new JSONObject(response);
+        String text = jsonObject.getString("text");
+        JSONObject textObject = new JSONObject(text);
+        property = textObject.get(property).toString();
+        return property;
+    }
+
+    // Properties that can be fetched:
+    // networkProfile / cpuAvg / cpuMax / memAvg / memMax / batteryAvg / batteryMax / duration / speedIndex
+    public String getPropertyFromPerformanceTransactionAPI(String transactionId, String property) {
+        try {
+            String apiUrl = getApiBaseUrl() + "/reporter/api/transactions/" + transactionId;
+            HttpResponse<String> response = Unirest.get(apiUrl)
+                    .header("Authorization", "Bearer " + EnvironmentConfig.getAccessKey())
+                    .asString();
+
+            String responseBody = response.getBody();
+            JSONObject jsonObject = new JSONObject(responseBody);
+
+            if (jsonObject.get(property) instanceof String) {
+                property = jsonObject.getString(property);
+            } else {
+                property = jsonObject.get(property).toString();
+            }
+            return property;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to fetch property from Performance Transaction API: " + property);
+            return "";
+        }
+    }
+
+    // This method helps to extract metrics from the HAR file, which can help us understand various metrics
+    // such as "How many network calls were made during the Transaction".
+    // This method can be expanded further with parameterization to retrieve other metrics
+    public ArrayList<String> extractHARFileMetrics(String transactionId, String fileName) throws IOException, URISyntaxException {
+        // Getting .json file from local directory
+        File jsonFile = downloadHARFileFromPerformanceTransaction(transactionId, fileName + "_" + getCurrentDateAndTime());
+
+        ArrayList<String> metrics = new ArrayList<>();
+        int numberOfNetworkCalls = 0;
+        double totalTimeTakenForNetworkCallsInSeconds = 0;
+
+        try {
+            String json = new String(Files.readAllBytes(Paths.get(String.valueOf(jsonFile))), StandardCharsets.UTF_8);
+
+            // Gets "entries" array from .json file, since information like request time is contained within "entries"
+            JSONObject jsonObj = new JSONObject(json);
+            JSONArray entriesArr = jsonObj.getJSONObject("log").getJSONArray("entries");
+            numberOfNetworkCalls = entriesArr.length();
+
+            long totalTimeMs = 0;
+
+            // Finds all the "time" objects from "entries"
+            for (int i = 0; i < numberOfNetworkCalls; i++) {
+                JSONObject entryObj = entriesArr.getJSONObject(i);
+                long time = entryObj.getLong("time");
+                totalTimeMs += time;
+            }
+
+            // Since "time" object is in Milliseconds, converting the total value accumulated to Seconds
+            totalTimeTakenForNetworkCallsInSeconds = (double) totalTimeMs / 1000;
+
+            metrics.add("Number of Network Calls made: " + numberOfNetworkCalls);
+            metrics.add("Total time taken for all Network Calls in Seconds: " + totalTimeTakenForNetworkCallsInSeconds);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return metrics;
+    }
+
+    // This method is used to download HAR file from individual Performance Transactions
+    public File downloadHARFileFromPerformanceTransaction(String transactionId, String fileName) throws IOException, URISyntaxException {
+
+        // Calls API to get HAR file
+        URI uri = new URIBuilder(getApiBaseUrl() + "/reporter/api/transactions/" + transactionId + "/har")
+                .setParameter("token", EnvironmentConfig.getAccessKey())
+                .build();
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet(uri);
+        org.apache.http.HttpResponse response = httpClient.execute(httpGet);
+
+        // HAR file is saved to local folder
+        File harFile = new File(System.getProperty("user.dir") + "/har_files/" + fileName + ".har");
+        FileOutputStream outputStream = new FileOutputStream(harFile);
+        response.getEntity().writeTo(outputStream);
+        outputStream.close();
+
+        return harFile;
+    }
+
+    public void setReportStatus(String status, String message) {
+        driver.executeScript("seetest:client.setReportStatus", status, status, message);
+    }
+
+    public void addReportStep(String input) {
+        driver.executeScript("seetest:client.report", input, "true");
+    }
+
+    public void addReportStep(String input, String status) {
+        driver.executeScript("seetest:client.report", input, status);
+    }
+
+    public void addPropertyForReporting(String property, String value) {
+        driver.executeScript("seetest:client.addTestProperty", property, value);
+    }
+
+    public void startGroupingOfSteps(String testName) {
+        driver.executeScript("seetest:client.startStepsGroup", testName);
+    }
+
+    public void endGroupingOfSteps() {
+        driver.executeScript("seetest:client.stopStepsGroup");
+    }
+
+    public String getCurrentDateAndTime() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
+        String currentDateAndTime = now.format(formatter);
+        return currentDateAndTime;
+    }
+
+    // Helper method to get API base URL from cloud URL
+    private String getApiBaseUrl() {
+        String cloudUrl = EnvironmentConfig.getCloudUrl();
+        // Remove /wd/hub suffix if present
+        return cloudUrl.replaceAll("/wd/hub$", "");
+    }
+}

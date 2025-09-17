@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="E2E Performance Testing Suite">
+
+    <test name="E2E_Flow_iOS_Test">
+        <parameter name="nvProfile" value="4G-average" />
+        <parameter name="captureLevel" value="Application" /> <!--Accepted Values: 'Device' or 'Application' -->
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.E2EFlowIOSTest"/>
+        </classes>
+    </test>
+
+    <test name="E2E_Flow_Android_Test">
+        <parameter name="nvProfile" value="4G-average" />
+        <parameter name="captureLevel" value="Application" />
+
+        <classes>
+            <class name="advancedCommands.performanceTransaction.e2e.tests.E2EFlowAndroidTest"/>
+        </classes>
+    </test>
+
+</suite>

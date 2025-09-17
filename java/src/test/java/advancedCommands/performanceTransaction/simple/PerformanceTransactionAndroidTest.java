@@ -1,7 +1,7 @@
-package advancedCommands.performanceTransaction;
+package advancedCommands.performanceTransaction.simple;
 
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.options.XCUITestOptions;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.testng.annotations.AfterMethod;
@@ -16,32 +16,32 @@ import utils.EnvironmentConfig;
  * Network traffic is measured for the device, and not per application.
  * You must use EndPerformanceTransaction after using this command.
  */
-public class PerformanceTransactionIOSTest {
+public class PerformanceTransactionAndroidTest {
     
-    private IOSDriver driver = null;
+    private AndroidDriver driver = null;
 
     @BeforeMethod
     public void before() throws MalformedURLException {
-        XCUITestOptions options = new XCUITestOptions()
-                .setApp("cloud:com.experitest.ExperiBank")
-                .setBundleId("com.experitest.ExperiBank")
+        UiAutomator2Options options = new UiAutomator2Options()
+                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
+                .setAppPackage("com.experitest.ExperiBank")
+                .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
-                .amend("digitalai:deviceQuery", EnvironmentConfig.getIOSDeviceQuery())
+                .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())
                 .amend("digitalai:instrumentApp", true)
-                .amend("digitalai:testName", "Performance Transaction test on iOS device");
-        driver = new IOSDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
+                .amend("digitalai:testName", "Performance Transaction test on Android device");
+        driver = new AndroidDriver(new URL(EnvironmentConfig.getCloudUrl()), options);
     }
-
 
     @Test
     public void performPerformanceTransaction() {
         driver.executeScript("seetest:client.startPerformanceTransactionForApplication", "com.experitest.ExperiBank",
                 "Monitor");
-        // driver.rotate(ScreenOrientation.PORTRAIT);
-        driver.findElement(By.xpath("//*[@name='usernameTextField']")).sendKeys("company");
-        driver.findElement(By.xpath("//*[@name='passwordTextField']")).sendKeys("company");
-        driver.findElement(By.xpath("//*[@name='loginButton']")).click();
+        driver.rotate(ScreenOrientation.PORTRAIT);
+        driver.findElement(By.id("com.experitest.ExperiBank:id/usernameTextField")).sendKeys("company");
+        driver.findElement(By.id("com.experitest.ExperiBank:id/passwordTextField")).sendKeys("company");
+        driver.findElement(By.id("com.experitest.ExperiBank:id/loginButton")).click();
         driver.executeScript("seetest:client.endPerformanceTransaction", "Transaction Test");
     }
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="PerformanceTrxTestSuite">
+    <test name="SimplePerformanceTrxTests">
+        <packages>
+            <package name="advancedCommands.performanceTransaction.simple"/>
+        </packages>
+    </test>    
+    <test name="E2EPerformanceTrxTests">
+        <packages>
+            <package name="advancedCommands.performanceTransaction.e2e.tests"/>
+        </packages>
+    </test>    
+</suite>
