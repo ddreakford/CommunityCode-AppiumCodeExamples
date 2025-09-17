@@ -52,7 +52,7 @@ docker-compose up
 docker-compose run --rm appium-tests --java --tests=quickstart
 
 # Run specific test suites
-docker-compose run --rm appium-tests --java --suites testng.xml,testng_quickstart.xml
+docker-compose run --rm appium-tests --java --suites testng.xml,quickstart.xml
 
 # TODO: Run platform-specific tests
 # *Not yet implemented*
@@ -68,8 +68,8 @@ Examples for optional mounting of `reports` and `logs` directories are included 
 docker build -t appium-code-examples .
 
 # Run specific test suites; optionally specify tests within the suites
-docker run --rm --env-file .env appium-code-examples-test --java --suites testng_quickstart.xml
-docker run --rm --env-file .env appium-code-examples-test --java --suites testng_quickstart.xml --tests=AndroidQuickStartTest
+docker run --rm --env-file .env appium-code-examples --java --suites testng_quickstart.xml
+docker run --rm --env-file .env appium-code-examples --java --suites testng_quickstart.xml --tests=AndroidQuickStartTest
 
 # Run all tests; mount reports and logs dirs
 docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all
@@ -94,7 +94,7 @@ python run_tests.py [OPTIONS]
 |--------|-------------|---------|
 | `--all` | Run all tests (Java and Python) | `--all --parallel=4` |
 | `--java` | Run Java/TestNG tests only | `--java --tests=quickstart` |
-| `--suites=FILTER` | Specify suite definition files | `--java --suites=testng.xml,testng_quickstart.xml` |
+| `--suites=FILTER` | Specify suite definition files | `--java --suites=testng.xml,quickstart.xml` |
 | `--tests=FILTER` | Filter tests by name | `--tests=quickstart` |
 | `--python` | Run Python/pytest tests only | `--python --platform=android` |
 | `--platform=FILTER` | Filter by platform | `--platform=android` |
