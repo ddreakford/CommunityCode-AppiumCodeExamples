@@ -32,7 +32,7 @@ CommunityCode-AppiumCodeExamples/
 │   ├── testng.xml             # TestNG suite configuration
 │   └── src/test/              # Java test sources
 │       ├── java/              # Test classes
-│       └── resources/         # Test resources (images, etc.)
+│       └── resources/         # Test resources (suite files, images, etc.)
 ├── python/                    # Python/pytest tests [@TODO / NOT YET IMPLEMENTED]
 │   ├── pyproject.toml         # Python project & dependencies
 │   ├── conftest.py            # Pytest configuration & fixtures
