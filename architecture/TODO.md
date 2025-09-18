@@ -39,7 +39,7 @@
         - Repo README
         - Containerized Testing README
         - Testrunner with `--help` param
-    - Add Performance Transaction tests
+    - ✅ Add Performance Transaction tests
         - ✅ Get existing performance test working
             - Also: this further validates the test execution filtering
             `docker run --rm --env-file .env appium-code-examples --java --suites performance_trx_quickstart.xml`
@@ -52,7 +52,9 @@
             - Attempt to start a transaction that's already in progress
             - These issues were related; fixing the first obviated the other.
     - Add Self Healing tests
-        - ...
+        - From [DAI AI-Powered Self Healing for Appium](https://github.com/dai-continuous-testing/CT-Self-Healing-Tests)
+        - Convert to Gradle build/execution
+        - Utilize .env file environment configuration
     - Add suite XML files for demo use cases:
         - Collections: `quickstart`, `advanced`, `optional`
         - Use cases: `perf-pageload`, `perf-e2e`
