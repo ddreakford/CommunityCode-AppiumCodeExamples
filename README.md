@@ -5,7 +5,7 @@ While the "containerized" option documented below is preferred, instructions are
 
 ## **Requirements**
 
-### Container Testing (Recommended)
+### Containerized Testing (Recommended)
 - **Docker**: Docker Engine 20.10+
 - **Docker Compose**: 2.0+ (optional)
 - **Digital.ai Testing Cloud**: Access credentials

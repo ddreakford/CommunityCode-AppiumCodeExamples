@@ -1,4 +1,4 @@
-# Container Testing Guide
+# Containerized Testing Guide
 
 This guide explains how to run Appium tests in a containerized environment with support for parallel execution and comprehensive reporting.
 
