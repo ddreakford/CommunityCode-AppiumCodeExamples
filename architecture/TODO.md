@@ -43,7 +43,7 @@
         - ✅ Get existing performance test working
             - Also: this further validates the test execution filtering
             `docker run --rm --env-file .env appium-code-examples --java --suites performance_trx_quickstart.xml`
-        - Copy "better" performance test samples into `advancedCapabilities` package
+        - ✅ Port "better" performance test samples into `advancedCapabilities` package
             - From [DAI Performance Tests on Mobile](https://github.com/raheekhandigitalai/DAI-CT-Performance-Tests-on-Mobile-Sample.git)
             - Convert to Gradle build/execution
             - Utilize .env file environment configuration
