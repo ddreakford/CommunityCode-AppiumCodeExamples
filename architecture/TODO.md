@@ -47,6 +47,10 @@
             - From [DAI Performance Tests on Mobile](https://github.com/raheekhandigitalai/DAI-CT-Performance-Tests-on-Mobile-Sample.git)
             - Convert to Gradle build/execution
             - Utilize .env file environment configuration
+        - ✅ Fix E2E Payment Flow
+            - Attempt to locate a UI XCUIElementTypeIcon[@name='SeeTestDemoApp']
+            - Attempt to start a transaction that's already in progress
+            - These issues were related; fixing the first obviated the other.
     - Add Self Healing tests
         - ...
     - Add suite XML files for demo use cases:

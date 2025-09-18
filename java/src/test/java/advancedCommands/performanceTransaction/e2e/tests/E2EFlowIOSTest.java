@@ -71,8 +71,9 @@ public class E2EFlowIOSTest {
             helper.startCapturePerformanceMetrics(nvProfile, captureLevel, "com.experitest.ExperiBank");
 
             // Click on the EriBank icon on the Device Home Page
-            driver.findElement(By.xpath("//XCUIElementTypeIcon[@name='SeeTestDemoApp']")).click();
-
+            // driver.findElement(By.xpath("//XCUIElementTypeIcon[@name='SeeTestDemoApp']")).click();
+            // The application is launched automatically by Appium when 'setApp' is used in the capabilities
+            
             // Verify user landed on the Login page
             wait.until(ExpectedConditions.elementToBeClickable(By.name("usernameTextField")));
 
