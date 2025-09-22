@@ -36,14 +36,15 @@ public class AppiumSelfHealingAndroidTest {
 
         if (applicationName.equalsIgnoreCase("unmodified")) {
             System.out.println(String.format("Uploading APK for unmodified: %s", EnvironmentConfig.getUnmodifiedBuildUrl()));
-            helper.uploadApplicationApi(EnvironmentConfig.getUnmodifiedBuildUrl(), applicationName);
+            helper.uploadApplicationApi(EnvironmentConfig.getUnmodifiedBuildUrl(), "seetest-unmodified");
         } else if (applicationName.equalsIgnoreCase("modified")) {
             System.out.println(String.format("Uploading APK for modified: %s", EnvironmentConfig.getModifiedBuildUrl()));
-            helper.uploadApplicationApi(EnvironmentConfig.getModifiedBuildUrl(), applicationName);
+            helper.uploadApplicationApi(EnvironmentConfig.getModifiedBuildUrl(), "seetest-modified");
         }
 
+        String uniqueName = applicationName.equalsIgnoreCase("unmodified") ? "seetest-unmodified" : "seetest-modified";
         UiAutomator2Options options = new UiAutomator2Options()
-                .setApp("cloud:uniqueName=" + applicationName)
+                .setApp("cloud:uniqueName=" + uniqueName)
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
                 .setFullReset(true)

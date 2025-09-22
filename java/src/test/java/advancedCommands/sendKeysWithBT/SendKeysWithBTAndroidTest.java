@@ -8,6 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.openqa.selenium.Keys;
+import utils.ApplicationUploadUtil;
 import utils.EnvironmentConfig;
 
 /**
@@ -16,11 +17,16 @@ import utils.EnvironmentConfig;
 public class SendKeysWithBTAndroidTest {
     
     private AndroidDriver driver = null;
+    private ApplicationUploadUtil uploadUtil;
 
     @BeforeMethod
     public void before() throws MalformedURLException {
+        uploadUtil = new ApplicationUploadUtil();
+        // Upload the unmodified version of the application
+        uploadUtil.uploadUnmodifiedApplication();
+
         UiAutomator2Options options = new UiAutomator2Options()
-                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
+                .setApp("cloud:uniqueName=" + ApplicationUploadUtil.SEETEST_UNMODIFIED)
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())

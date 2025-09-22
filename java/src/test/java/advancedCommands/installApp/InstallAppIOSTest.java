@@ -7,6 +7,7 @@ import java.net.URL;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import utils.ApplicationUploadUtil;
 import utils.EnvironmentConfig;
 
 /**
@@ -23,11 +24,16 @@ public class InstallAppIOSTest {
     private static final String APP_PACKAGE = "com.experitest.ExperiBank";
 
     private IOSDriver driver = null;
+    private ApplicationUploadUtil uploadUtil;
 
     @BeforeMethod
     public void before() throws MalformedURLException {
+        uploadUtil = new ApplicationUploadUtil();
+        // Upload the unmodified version of the application
+        uploadUtil.uploadUnmodifiedApplication();
+
         XCUITestOptions options = new XCUITestOptions()
-                .setApp("cloud:com.experitest.ExperiBank")
+                .setApp(ApplicationUploadUtil.SEETEST_FULLNAME)
                 .setBundleId(APP_PACKAGE)
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())

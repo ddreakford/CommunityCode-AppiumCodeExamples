@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
+import utils.ApplicationUploadUtil;
 import utils.EnvironmentConfig;
 
 
@@ -20,11 +21,16 @@ public class ReleaseVersionIOSTest {
     private static final String APP_RELEASE_VERSION = "<APP_RELEASE_VERSION>";
 
     private IOSDriver driver = null;
+    private ApplicationUploadUtil uploadUtil;
 
     @BeforeMethod
     public void setUp() throws MalformedURLException {
+        uploadUtil = new ApplicationUploadUtil();
+        // Upload the unmodified version of the application
+        uploadUtil.uploadUnmodifiedApplication();
+
         XCUITestOptions options = new XCUITestOptions()
-                .setApp("cloud:com.experitest.ExperiBank")
+                .setApp(ApplicationUploadUtil.SEETEST_FULLNAME)
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())

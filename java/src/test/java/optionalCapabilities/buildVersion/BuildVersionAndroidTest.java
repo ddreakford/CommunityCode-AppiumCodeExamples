@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
+import utils.ApplicationUploadUtil;
 import utils.EnvironmentConfig;
 
 /**
@@ -19,13 +20,18 @@ public class BuildVersionAndroidTest {
     private static final String APP_BUILD_VERSION = "<APP_BUILD_VERSION>";
 
     private AndroidDriver driver = null;
+    private ApplicationUploadUtil uploadUtil;
 
     @BeforeMethod
     public void setUp() throws MalformedURLException {
+        uploadUtil = new ApplicationUploadUtil();
+        // Upload the unmodified version of the application
+        uploadUtil.uploadUnmodifiedApplication();
+
         UiAutomator2Options options = new UiAutomator2Options()
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
-                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
+                .setApp("cloud:uniqueName=" + ApplicationUploadUtil.SEETEST_UNMODIFIED)
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
                 .amend("digitalai:deviceQuery", EnvironmentConfig.getAndroidDeviceQuery())

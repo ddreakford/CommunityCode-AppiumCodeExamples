@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import org.openqa.selenium.By;
+import utils.ApplicationUploadUtil;
 import utils.EnvironmentConfig;
 
 import java.net.MalformedURLException;
@@ -33,11 +34,16 @@ public class E2EFlowAndroidTest {
     protected AndroidDriver driver = null;
     protected WebDriverWait wait;
     protected PerformanceHelpers helper;
+    private ApplicationUploadUtil uploadUtil;
 
     @BeforeClass
     public void setUp() throws MalformedURLException {
+        uploadUtil = new ApplicationUploadUtil();
+        // Upload the unmodified version of the application
+        uploadUtil.uploadUnmodifiedApplication();
+
         UiAutomator2Options options = new UiAutomator2Options()
-                .setApp("cloud:com.experitest.ExperiBank/.LoginActivity")
+                .setApp("cloud:uniqueName=" + ApplicationUploadUtil.SEETEST_UNMODIFIED)
                 .setAppPackage("com.experitest.ExperiBank")
                 .setAppActivity(".LoginActivity")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())

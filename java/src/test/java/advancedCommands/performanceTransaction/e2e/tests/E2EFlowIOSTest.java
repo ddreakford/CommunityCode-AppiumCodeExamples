@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import org.openqa.selenium.By;
+import utils.ApplicationUploadUtil;
 import utils.EnvironmentConfig;
 
 import java.net.MalformedURLException;
@@ -39,11 +40,16 @@ public class E2EFlowIOSTest {
     protected IOSDriver driver = null;
     protected WebDriverWait wait;
     protected PerformanceHelpers helper;
+    private ApplicationUploadUtil uploadUtil;
 
     @BeforeClass
     public void setUp() throws MalformedURLException {
+        uploadUtil = new ApplicationUploadUtil();
+        // Upload the unmodified version of the application
+        uploadUtil.uploadUnmodifiedApplication();
+
         XCUITestOptions options = new XCUITestOptions()
-                .setApp("cloud:com.experitest.ExperiBank")
+                .setApp(ApplicationUploadUtil.SEETEST_FULLNAME)
                 .setBundleId("com.experitest.ExperiBank")
                 .amend("digitalai:accessKey", EnvironmentConfig.getAccessKey())
                 .amend("digitalai:appiumVersion", EnvironmentConfig.getAppiumVersion())
