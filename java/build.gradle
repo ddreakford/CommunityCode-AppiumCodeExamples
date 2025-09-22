@@ -28,7 +28,7 @@ test {
                 file(suite.startsWith('src/test/resources/') ? suite : "src/test/resources/${suite}")
             }
         } else {
-            suiteXmlFiles = files('src/test/resources/testng.xml')
+            suiteXmlFiles = [file('src/test/resources/testng.xml')]
         }
     }
     maxParallelForks = project.hasProperty('maxForks') ?
