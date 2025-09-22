@@ -52,10 +52,10 @@ CommunityCode-AppiumCodeExamples/
 ## **Quick start: Containerized option**
 Use this option to run tests without separately installing all of the required dependencies.
 
-📋 See [CONTAINER_TESTING_GUIDE.md](/architecture/CONTAINER_TESTING_GUIDE.md) for full documentation of this option.
+📋 See [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md) for full documentation of this option.
 
 ### Prereq: Environment variables
- **Recommended:** Create a `.env` file as documented in [CONTAINER_TESTING_GUIDE.md](/architecture/CONTAINER_TESTING_GUIDE.md)
+ **Recommended:** Create a `.env` file as documented in [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md)
 
 
 ### Docker Compose
@@ -69,7 +69,7 @@ docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel w
 
 ### Direct Docker
 📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
-See [CONTAINER_TESTING_GUIDE.md](/architecture/CONTAINER_TESTING_GUIDE.md) for optional mounting
+See [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md) for optional mounting
 of `reports` and `logs` directories.
 
 ```bash
