@@ -51,7 +51,7 @@
             - Attempt to locate a UI XCUIElementTypeIcon[@name='SeeTestDemoApp']
             - Attempt to start a transaction that's already in progress
             - These issues were related; fixing the first obviated the other.
-    - Add Self Healing tests
+    - ✅ Add Self Healing tests
         - From [DAI AI-Powered Self Healing for Appium](https://github.com/dai-continuous-testing/CT-Self-Healing-Tests)
         - Convert to Gradle build/execution
         - Utilize .env file environment configuration
