@@ -69,8 +69,8 @@ docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel w
 
 ### Direct Docker
 📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
-See [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md) for optional mounting
-of `reports` and `logs` directories.
+
+Local reports and logs (outupt by the test runner clients) can be accessed and retained by optionally mounting the `reports` and `logs` directories, as documented in the [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md).
 
 ```bash
 # Build the image
