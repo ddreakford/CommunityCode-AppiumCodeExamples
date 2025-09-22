@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Self Healing - Regular Tests">
+
+    <test name="NOT-Self-Healing - Not Modified">
+
+        <parameter name="application.name" value="unmodified" />
+
+        <classes>
+            <class name="advancedCommands.appium_self_healing.tests.AppiumSelfHealingRegularAndroidTest"/>
+        </classes>
+    </test>
+
+    <test name="NOT-Self-Healing - Modified">
+
+        <parameter name="application.name" value="modified" />
+
+        <classes>
+            <class name="advancedCommands.appium_self_healing.tests.AppiumSelfHealingRegularAndroidTest"/>
+        </classes>
+    </test>
+
+</suite>

@@ -42,6 +42,16 @@ public class EnvironmentConfig {
     public static String getIOSDeviceQuery() {
         return getDeviceQuery("ios");
     }
+
+    public static String getUnmodifiedBuildUrl() {
+        return getEnvVar("UNMODIFIED_BUILD_URL",
+            "https://ct-demo-content.s3.us-west-2.amazonaws.com/com.experitest.ExperiBank_.LoginActivity_ver_UNMODIFIED.apk");
+    }
+
+    public static String getModifiedBuildUrl() {
+        return getEnvVar("MODIFIED_BUILD_URL",
+            "https://ct-demo-content.s3.us-west-2.amazonaws.com/com.experitest.ExperiBank_.LoginActivity_ver_MODIFIED.apk");
+    }
     
     private static String getDeviceQuery(String platform) {
         String customQuery = getEnvVar(platform.toUpperCase() + "_DEVICE_QUERY", "");
