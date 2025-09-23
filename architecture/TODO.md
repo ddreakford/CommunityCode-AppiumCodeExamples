@@ -9,9 +9,7 @@
     - ✅ Verify `env.example` content (after Quick Tests validation)
     - ✅ Verify format of commands listed via `run_tests.py --help`
     - ✅ Add logging param spec option to `run_tests.py` (-v $(pwd)/logs:/app/logs appium-code-example)
-    - TODO:
-        Move all Java/TestNG suite files to `java/suites/` dir
-- (RE)Fix suite selection
+- ✅ (RE)Fix suite selection
     - Having to specify `src/test/resources/...`
     - Simple XML file name should work; 
 - Parallel test exection
@@ -55,13 +53,13 @@
         - From [DAI AI-Powered Self Healing for Appium](https://github.com/dai-continuous-testing/CT-Self-Healing-Tests)
         - Convert to Gradle build/execution
         - Utilize .env file environment configuration
-    - Add suite XML files for demo use cases:
-        - Collections: `quickstart`, `advanced`, `optional`
-        - Use cases: `perf-pageload`, `perf-e2e`
     - Add Accessibility / Deque Axe integration
         - License for Deque Axe is needed (?)
         - Demo --> Deque
         - Decide: Create dashboard within Digital to show it all under a single pane?
+    - Add suite XML files for demo use cases:
+        - Collections: `quickstart`, `advanced`, `optional`
+        - Use cases: `perf-pageload`, `perf-e2e`
 - Error handling
     - Gracefully exit when tests cannot start (container currently hangs when this occurs)
     - Appium Test Execution Summary

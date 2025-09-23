@@ -93,8 +93,8 @@ class TestRunner:
         #
         # Well-known suites (for example, QuickStart) have built-in params.
         #
-        # For others, test names (as specified in a suite XML file) can be
-        # directly passed via the `--tests` parameter.
+        # For others, filters for test names can be directly passed via 
+        # the `--tests` parameter.
         if test_filter:
             if test_filter == "quickstart":
                 cmd.extend(["--tests", "*QuickStart*"])
@@ -290,7 +290,6 @@ class TestRunner:
         print(f"\n{'='*60}")
         print("📋 TEST SUITES EXECUTION SUMMARY")
         print(f"{'='*60}")
-        print(f"Test Suites: {summary['total_tests']}")
         print(f"Suites Passed: {summary['passed']} ✅")
         print(f"Suites Failed: {summary['failed']} ❌")
         print(f"Suite Success Rate: {summary['success_rate']:.1f}%")
@@ -389,7 +388,7 @@ Container Usage Examples:
   docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --java --tests=quickstart
     # Run Java quick start tests only
 
-  docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --python --platform=android
+  docker run --rm --env-file .env -v $(pwd)/reports:/app/reports appium-code-examples --python --tests=Android
     # Run Python Android tests only
 
   docker-compose run --rm appium-tests --all --parallel=2
@@ -409,8 +408,7 @@ Local Script Usage (if running outside container):
     parser.add_argument("--suites", help="Suite XML files (default: testng.xml)")
     
     # Test filtering
-    parser.add_argument("--tests", help="Test filter (quickstart, advanced, optional or 'test_name's as specified in a suite XML file)")
-    parser.add_argument("--platform", help="Platform filter (android, ios)")
+    parser.add_argument("--tests", help="Test filter (quickstart, advanced, optional, or test name filter)")
     
     # Execution options
     parser.add_argument("--parallel", type=int, default=4, 
@@ -441,14 +439,14 @@ def main():
     
     if args.all:
         test_specs.extend([
-            {"type": "java", "suites": args.suites or "testng.xml", "filter": args.tests or args.platform},
-            {"type": "python", "filter": args.tests or args.platform}
+            {"type": "java", "suites": args.suites or "testng.xml", "filter": args.tests},
+            {"type": "python", "filter": args.tests}
         ])
     else:
         if args.java:
-            test_specs.append({"type": "java", "suites": args.suites or "testng.xml", "filter": args.tests or args.platform})
+            test_specs.append({"type": "java", "suites": args.suites or "testng.xml", "filter": args.tests})
         if args.python:
-            test_specs.append({"type": "python", "filter": args.tests or args.platform})
+            test_specs.append({"type": "python", "filter": args.tests})
     
     # Default to all tests if nothing specified
     if not test_specs:

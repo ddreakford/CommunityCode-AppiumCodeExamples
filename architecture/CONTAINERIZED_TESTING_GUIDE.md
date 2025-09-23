@@ -52,11 +52,7 @@ docker-compose up
 docker-compose run --rm appium-tests --java --tests=quickstart
 
 # Run specific test suites
-docker-compose run --rm appium-tests --java --suites testng.xml,quickstart.xml
-
-# TODO: Run platform-specific tests
-# *Not yet implemented*
-docker-compose run --rm appium-tests --all --platform=android
+docker-compose run --rm appium-tests --java --suites=testng.xml,quickstart.xml
 ```
 
 #### Option 2: Direct Docker
@@ -71,12 +67,12 @@ docker build -t appium-code-examples .
 docker run --rm --env-file .env appium-code-examples --java --suites testng_quickstart.xml
 docker run --rm --env-file .env appium-code-examples --java --suites testng_quickstart.xml --tests=AndroidQuickStartTest
 
-# Run all tests; mount reports and logs dirs
+# Mount reports and logs dirs
 docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --all
-docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --java --tests=quickstart
+docker run --rm --env-file .env -v $(pwd)/reports:/app/reports -v $(pwd)/logs:/app/logs appium-code-examples --java --suites=testng_quickstart.xml
 
-# Run with specific parameters
-docker run --rm --env-file .env appium-code-examples --java --parallel=4
+# Parallel execution specifics
+docker run --rm --env-file .env appium-code-examples --java --parallel=6
 ```
 
 ## Test Runner Commands
@@ -93,11 +89,10 @@ python run_tests.py [OPTIONS]
 | Option | Description | Example |
 |--------|-------------|---------|
 | `--all` | Run all tests (Java and Python) | `--all --parallel=4` |
-| `--java` | Run Java/TestNG tests only | `--java --tests=quickstart` |
-| `--suites=FILTER` | Specify suite definition files | `--java --suites=testng.xml,quickstart.xml` |
-| `--tests=FILTER` | Filter tests by name | `--tests=quickstart` |
-| `--python` | Run Python/pytest tests only | `--python --platform=android` |
-| `--platform=FILTER` | Filter by platform | `--platform=android` |
+| `--java` | Run Java/TestNG tests only | `--java` |
+| `--suites=SUITE_FILES` | Specify suite definition files | `--java --suites=testng_quickstart.xml` |
+| `--tests=FILTER` | Filter tests by name or predefined group | `--tests=IOS` |
+| `--python` | Run Python/pytest tests only | `--python --tests=Android` |
 | `--parallel=N` | Number of parallel workers (default: 4) | `--parallel=6` |
 | `--generate-reports-only` | Generate reports from existing logs | `--generate-reports-only` |
 | `--help` | Show help message | `--help` |
@@ -118,25 +113,21 @@ python run_tests.py --all --parallel=8
 python run_tests.py --java --tests=quickstart --parallel=4
 
 # Run Python Android tests with high parallelism
-python run_tests.py --python --platform=android --parallel=6
+python run_tests.py --python --tests=Android --parallel=6
 ```
 
 ## Test Filtering
 
 ### Available Test Filters
 
-#### Test Type Filters (`--tests`)
+#### Predefined Test Groups (`--tests`)
 - `quickstart`: Basic Appium functionality tests
 - `advanced`: Complex Appium operations
 - `optional`: Platform-specific optional capabilities
 
-#### Custom Filters (`--tests`)
+#### Test Name Filters (`--tests`)
 You can also use custom patterns that match test class names or methods.
-- `[TEST_NAME_FILTER]`: Matches test within a suite definition file
-
-#### Platform Filters (`--platform`)
-- `android`: Android-specific tests only
-- `ios`: iOS-specific tests only
+- `[TEST_NAME_FILTER]`: Match tests within a suite
 
 ## Environment Configuration
 
