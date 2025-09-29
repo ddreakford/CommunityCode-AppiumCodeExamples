@@ -68,3 +68,7 @@ allure-report/
 .env
 .env.local
 .env.*.local
+
+# Documentation still under development
+architecture/SELECTION_TESTS.md
+architecture/PRESENTATION.md
