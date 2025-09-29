@@ -53,13 +53,16 @@
         - From [DAI AI-Powered Self Healing for Appium](https://github.com/dai-continuous-testing/CT-Self-Healing-Tests)
         - Convert to Gradle build/execution
         - Utilize .env file environment configuration
-    - Add Accessibility / Deque Axe integration
-        - License for Deque Axe is needed (?)
-        - Demo --> Deque
-        - Decide: Create dashboard within Digital to show it all under a single pane?
-    - Add suite XML files for demo use cases:
+    - Add Accessibility / axe Devtools integration
+        - License is needed for axe Devtools for Mobile
+        - Create Quickstart Accessibility tests (IOS, Android)
+        - Results reporting:
+            - Generate standalone, sharable HTML reports via axe Devtools Mobile Reporter
+            - Add test reporting step refering to Deque Axe Mobile Dashboard
+    - Add CLI shortcuts for demo, POT use cases
+        - Or maybe stick with explicit specification of `--tests` plus `--suites`
         - Collections: `quickstart`, `advanced`, `optional`
-        - Use cases: `perf-pageload`, `perf-e2e`
+        - Use cases: `perf-quickstart`, `perf-e2e`, `selfhealing`
 - Error handling
     - Gracefully exit when tests cannot start (container currently hangs when this occurs)
     - Appium Test Execution Summary

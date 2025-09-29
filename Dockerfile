@@ -29,7 +29,7 @@ COPY . .
 
 # Build Java dependencies (cache Gradle wrapper and dependencies)
 WORKDIR /app/java
-RUN ./gradlew build --no-daemon --exclude-task test || true
+RUN ./gradlew compileTestJava --no-daemon || true
 RUN ./gradlew dependencies --no-daemon || true
 
 # Ensure .gradle directory exists for copying to runtime stage

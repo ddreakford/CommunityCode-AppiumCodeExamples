@@ -52,6 +52,15 @@ public class EnvironmentConfig {
         return getEnvVar("MODIFIED_BUILD_URL",
             "https://ct-demo-content.s3.us-west-2.amazonaws.com/com.experitest.ExperiBank_.LoginActivity_ver_MODIFIED.apk");
     }
+
+    public static String getAxeDevToolsApiKey() {
+        String apiKey = getEnvVar("AXE_DEVTOOLS_API_KEY", "");
+        if (apiKey.isEmpty()) {
+            throw new RuntimeException("AXE_DEVTOOLS_API_KEY environment variable is required for accessibility tests. " +
+                "Please add your Deque axe DevTools API key to the .env file.");
+        }
+        return apiKey;
+    }
     
     private static String getDeviceQuery(String platform) {
         String customQuery = getEnvVar(platform.toUpperCase() + "_DEVICE_QUERY", "");
