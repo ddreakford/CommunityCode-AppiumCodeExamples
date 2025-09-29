@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="AccessibilityTestSuite">
+    <test name="AndroidAccessibilityTest">
+        <classes>
+            <class name="advancedCommands.accessibilityscan.AndroidAccessibilityTest"/>
+        </classes>
+    </test>    
+    <test name="IOSAccessibilityTest">
+        <classes>
+            <class name="advancedCommands.accessibilityscan.IOSAccessibilityTest"/>
+        </classes>
+    </test>    
+</suite>
