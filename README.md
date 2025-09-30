@@ -19,7 +19,7 @@ A local Appium server is optional, as tests can be seamlesly run against devices
 - **Appium**: Appium server running on localhost:4723
 
 ## **Application Under Test**
-* The tests in this repo are generally run on two applications: Eribank and UIcatalog. The tests assume the applicatin under test is available for installation on the target device. If you are using Digital.ai Testing Cloud and the application has been made available to your project, application installion on the target device can be triggered via Capabilities that are specified for the test.
+The tests in this repo are generally run on two applications: Eribank and UIcatalog. The tests assume the applicatin under test is available for installation on the target device. If you are using Digital.ai Testing Cloud and the application has been made available to your project, application installion on the target device can be triggered via Capabilities that are specified for the test.
 
 ## **Project Structure**
 
@@ -64,7 +64,7 @@ Use this option to run tests without separately installing all of the required d
 docker-compose build # (Re)Build the test code images
 docker-compose run --rm appium-tests --java --suites=testng_quickstart.xml
 docker-compose run --rm appium-tests --python --tests=Android
-docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel workers
+docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel workers (default is 4)
 ```
 
 ### Direct Docker
