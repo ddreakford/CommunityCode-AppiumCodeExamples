@@ -1,25 +1,32 @@
-# **Appium Open Source with Digital.ai Testing - Code Examples**
+# **Appium Open Source with Digital.ai Testing - Examples**
 This project demonstrates how to run Appium based tests on devices hosted by Digital.ai Testing Cloud. Samples are included for Java/TestNG and Python/pytest implementations. 
 
-While the "containerized" option documented below is preferred, instructions are provided for natively installed dependencies, as well.
+While the "containerized" option (for test build and execution) is preferred, instructions are provided for natively installed dependencies, as well.
 
 ## **Requirements**
 
-### Containerized Testing (Recommended)
+### Containerized Testing (***Recommended***)
+The requisite dependencies to build and run the tests are added and updated as part of the docker image build. 
+
+Most testers will prefer to build (and rebuild) the image as part of their test development workflow. This approach reduces the time and effort associated with dependency management while affording full flexibility to modify the test code and drive test execution from your local machine or as part of a CI pipeline.
+
 - **Docker**: Docker Engine 20.10+
 - **Docker Compose**: 2.0+ (optional)
-- **Digital.ai Testing Cloud**: Access credentials
+- **Digital.ai Testing Cloud**: Access credentials and the URL for your Digital.ai Testing lab endpoint. Digital.ai provides hosted, private or hybrid deployment to suit your use cases and requirements.
 
-### Local Test Development (natively installed dependencies)
+### Natively Installed Dependencies (***Optional***)
+This option is applicable if you prefer to natively install the dependencies needed to build and run your tests. 
 - **Java**: JDK 11+, Gradle
 - **Python**: Python 3.9+, uv package manager
 
-### Local Appium Server (optional)
-A local Appium server is optional, as tests can be seamlesly run against devices hosted in the Digital.ai Testing Cloud whether dependencies are containerized or managed natively.
+### Local Appium Server (***Optional***)
+A local Appium server is optional, as tests can be seamlesly run against devices hosted in the Digital.ai Testing Cloud, whether the test dependencies are containerized or managed natively.
 - **Appium**: Appium server running on localhost:4723
 
 ## **Application Under Test**
-The tests in this repo are generally run on two applications: Eribank and UIcatalog. The tests assume the applicatin under test is available for installation on the target device. If you are using Digital.ai Testing Cloud and the application has been made available to your project, application installion on the target device can be triggered via Capabilities that are specified for the test.
+The tests assume the application under test is available for installation on the target device. If you are using Digital.ai Testing Cloud and the application has been made available to your project, application installion on the target device is typically triggered via Capabilities that are specified for the test.
+
+The tests in this repo are generally run on two sample applications that are provided by Digital.ai: **Eribank** and **UIcatalog**. Most of the sample tests in this repo make use of a utility that uploads the target application if it has not been uploaded already.
 
 ## **Project Structure**
 
@@ -49,16 +56,26 @@ CommunityCode-AppiumCodeExamples/
 └── build.gradle               # Build/test configuration (Gradle driving TestNG, pytest)
 ```
 
-## **Quick start: Containerized option**
-Use this option to run tests without separately installing all of the required dependencies.
+## **Quick start: Containerized option** (***Recommended***)
+Run tests without natively installing the dependencies required to build and run your tests.
 
 📋 See [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md) for full documentation of this option.
 
 ### Prereq: Environment variables
- **Recommended:** Create a `.env` file as documented in [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md)
+ **Recommended:** Create a `.env` file as documented in [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md). This approach is consistent whether building and running your test container locally or as part of a CI pipeline. Environment variables are used to specify:
+ - Digital.ai Testing lab endpoint
+ - Digital.ai Testing access key
+ - Device queries (specify the devices on which your tests run)
+ - ...
 
+### Logs and test run reports
+📋 Comprehensive test results and logs are provided by Digital.ai Testing cloud.
+
+Local reports and logs (primarily outupt by the test runner clients) can be accessed and retained by mounting the `reports` and `logs` directories, as documented in the [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md).
 
 ### Docker Compose
+📋 Choice of this or the "Direct Docker" option is a matter of preference. This option simplifies (and captures in versioned config) the specification of use case specific parameters, such as volume mounts for logs, parallel processing preferences and tests suites to be run.
+
 ```bash
 # Run specific test suites
 docker-compose build # (Re)Build the test code images
@@ -68,9 +85,6 @@ docker-compose run --rm appium-tests --all --parallel=6  # Run with 6 parallel w
 ```
 
 ### Direct Docker
-📋 Comprehensive reports and logs are provided by Digital.ai Testing cloud.
-
-Local reports and logs (outupt by the test runner clients) can be accessed and retained by optionally mounting the `reports` and `logs` directories, as documented in the [CONTAINERIZED_TESTING_GUIDE.md](/architecture/CONTAINERIZED_TESTING_GUIDE.md).
 
 ```bash
 # Build the image
