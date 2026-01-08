@@ -102,6 +102,7 @@ ehthumbs.db
 # Java-specific
 *.class
 *.jar
+!**/gradle/wrapper/*.jar
 *.war
 *.ear
 *.nar
