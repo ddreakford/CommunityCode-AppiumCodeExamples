@@ -59,13 +59,11 @@ RUN useradd -m -u 1000 testrunner && \
     mkdir -p /app /app/reports /app/logs && \
     chown -R testrunner:testrunner /app
 
+# Set working directory before copying
+WORKDIR /app
+
 # Copy built project from builder stage
 COPY --from=builder --chown=testrunner:testrunner /app .
-
-# Ensure critical directories are copied properly (backup copies)
-COPY --chown=testrunner:testrunner scripts/ /app/scripts/
-COPY --chown=testrunner:testrunner java/ /app/java/
-COPY --chown=testrunner:testrunner python/ /app/python/
 
 # Copy Gradle wrapper and cached dependencies
 COPY --from=builder --chown=testrunner:testrunner /root/.gradle /home/testrunner/.gradle
@@ -75,10 +73,6 @@ RUN if [ -f /app/java/gradlew ]; then chmod +x /app/java/gradlew; else echo "War
 
 # Switch to non-root user
 USER testrunner
-WORKDIR /app
-
-# Python virtual environment was already created in builder stage and copied over
-WORKDIR /app
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
@@ -86,7 +80,6 @@ ENV GRADLE_OPTS="-Dorg.gradle.daemon=false"
 ENV PATH="/app/python/.venv/bin:$PATH"
 
 # Create entrypoint script
-WORKDIR /app
 RUN echo '#!/bin/bash\nset -e\nif [ "$#" -eq 0 ]; then\n    python3.11 /app/scripts/run_tests.py --help\nelse\n    python3.11 /app/scripts/run_tests.py "$@"\nfi' > /app/entrypoint.sh && \
     chmod +x /app/entrypoint.sh
 
