@@ -94,11 +94,11 @@ docker build -t appium-code-examples .
 docker run --rm appium-code-examples --help
 
 # Run all tests with environment file
-docker run --rm --env-file .env --all --parallel=4  # 4 parallel workers
+docker run --rm --env-file .env appium-code-examples --all --parallel=4  # 4 parallel workers
 
 # Run test suites, predefined groups or by test name filter 
-docker run --rm --env-file .env --java --suites=testng_quickstart.xml --tests=IOS
-docker run --rm --env-file .env --python --tests=Android
+docker run --rm --env-file .env appium-code-examples --java --suites=testng_quickstart.xml --tests=IOS
+docker run --rm --env-file .env appium-code-examples --python --tests=Android
 
 # Available options:
 # --all                   Run all tests (Java and Python)
