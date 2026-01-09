@@ -88,6 +88,10 @@ class TestRunner:
 
         # TestNG suites
         cmd.extend([f"-Psuites={test_suites}"])
+
+        # Debug: Print the full command
+        print(f"☕ Running command: {' '.join(cmd)}")
+        print(f"☕ Working directory: {self.java_dir}")
         
         # Test filtering
         #
