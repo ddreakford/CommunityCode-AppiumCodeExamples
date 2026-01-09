@@ -29,6 +29,8 @@ COPY . .
 
 # Build Java dependencies (cache Gradle wrapper and dependencies)
 WORKDIR /app/java
+# Symlink to root gradle wrapper should already exist from COPY, but create if missing
+RUN test -L gradle || ln -s /app/gradle gradle
 RUN ./gradlew compileTestJava --no-daemon || true
 RUN ./gradlew dependencies --no-daemon || true
 

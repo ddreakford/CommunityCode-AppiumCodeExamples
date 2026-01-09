@@ -3,6 +3,7 @@
 build/
 gradle-wrapper.properties
 !gradle/wrapper/gradle-wrapper.jar
+# Note: java/gradle is a symlink to ../gradle (root gradle wrapper) and IS tracked in git
 
 # Java
 *.class
