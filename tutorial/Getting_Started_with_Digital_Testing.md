@@ -1,6 +1,6 @@
-# Getting Started with Digital Testing
+# Getting Started with Digital Testing Lab
 
-## Introduction to Digital.ai Testing Test Lab
+## Introduction to Digital.ai Testing Lab
 
 Where, and against what, are you running your mobile and web application tests?
 
